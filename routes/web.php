@@ -19,6 +19,6 @@ Route::get('/', function () {
 });
 Route::get('/login', 'App\Http\Controllers\loginController@loginForm');
 Route::post('/login', 'App\Http\Controllers\loginController@doLogin');
-Route::get('/adminHome', function () {
-    return view('homes.adminHome');
-});
+// Route::get('/adminHome', function () {
+//     return view('homes.adminHome');
+// });

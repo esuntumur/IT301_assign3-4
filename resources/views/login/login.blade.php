@@ -8,26 +8,29 @@
     <div class="row">
         <div class="col-md-6">
             <div>
-                <form onsubmit="" class="box" method="POST" action="adminHome">
+                <form onsubmit="" class="box" method="POST" action="login">
                     {{csrf_field()}}
                     <h1>Login</h1>
-                    <p class="text-muted"> Please enter your login and password!</p>
+                    <p class="text-muted"> Please enter your username and password!</p>
                     <input type="text" name="name" placeholder="Username">
-                    <input type="password" name="password" placeholder="Password"> <a class="forgot text-muted"
-                        href="#">Forgot
-                        password?</a>
+                    <input type="password" name="password" placeholder="Password">
                     <input type="submit" name="" value="Login" href="#">
                     <div class="col-md-12">
-                        <ul class="social-network social-circle">
-                            <li><a href="#" class="icoFacebook" title="Facebook"><i class="fab fa-facebook-f"></i></a>
-                            </li>
-                            <li><a href="#" class="icoTwitter" title="Twitter"><i class="fab fa-twitter"></i></a></li>
-                            <li><a href="#" class="icoGoogle" title="Google +"><i class="fab fa-google-plus"></i></a>
-                            </li>
+                        <ul class="text-danger text-left">
+                            @if($errors->any())
+                            @foreach($errors -> all() as $error)
+                            <li>{{$error}}</li>
+                            @endforeach
+                            @endif
                         </ul>
+                        @if(session('success'))
+                        <h5 class="text-danger">{{session("success")}}</h5>
+                        @endif
                     </div>
                 </form>
+
             </div>
+
         </div>
     </div>
 </div>
