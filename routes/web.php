@@ -21,6 +21,13 @@ Route::get('/login', 'App\Http\Controllers\loginController@loginForm');
 Route::get('/signUp', 'App\Http\Controllers\signUpController@signUp');
 Route::post('/login', 'App\Http\Controllers\loginController@doLogin');
 Route::post('/signUp', 'App\Http\Controllers\signUpController@doSignUp');
+Route::get('/mastershop', function () {
+    return view('layout.masterShop');
+});
+Route::get('/mastershop/addcontent', function () {
+    return view('shop.addContentForm');
+});
+Route::post('/mastershop', 'App\Http\Controllers\shopController@addContentForm');
 // Route::get('/adminHome', function () {
 //     return view('homes.adminHome');
 // });
