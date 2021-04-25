@@ -1,6 +1,6 @@
 @extends('layout.master')
 @section('content')
-<h1>admin home</h1>
+<h1>Admin home</h1>
 @if(isset($name) && isset($password))
 <h1>name: {{$name}}</h1>
 <h1>pass: {{$password}}</h1>
