@@ -20,9 +20,31 @@ class loginController extends Controller
             'password' => 'required',
             'name' => 'required',
         ]);
-        $exist = DB::table('admin')->get();
-        if ($exist[0]->name == $request->name && $exist[0]->password == $request->password) {
-            return view('homes.adminHome', ['name' => $request->name, 'password' => $request->password]);
-        } else return redirect()->back()->withSuccess("Таны оруулсан хэрэглэгч байхгүй байна.");
+        switch ($request->loginType) {
+            case 'admin':
+                $exist = DB::table('admin')->get();
+                foreach ($exist as $item) {
+                    if ($item->name == $request->name && $item->password == $request->password) {
+                        return view('homes.adminHome', ['name' => $request->name, 'password' => $request->password]);
+                    } else return redirect()->back()->withSuccess("Таны оруулсан хэрэглэгч байхгүй байна.");
+                }
+                break;
+            case 'customer':
+                $exist = DB::table('customer')->get();
+                foreach ($exist as $item) {
+                    if ($item->name == $request->name && $item->password == $request->password) {
+                        return view('homes.adminHome', ['name' => $request->name, 'password' => $request->password]);
+                    } else return redirect()->back()->withSuccess("Таны оруулсан хэрэглэгч байхгүй байна.");
+                }
+                break;
+            case 'shop':
+                $exist = DB::table('shops')->get();
+                foreach ($exist as $item) {
+                    if ($item->name == $request->name && $item->password == $request->password) {
+                        return view('homes.adminHome', ['name' => $request->name, 'password' => $request->password]);
+                    } else return redirect()->back()->withSuccess("Таны оруулсан хэрэглэгч байхгүй байна.");
+                }
+                break;
+        }
     }
 }

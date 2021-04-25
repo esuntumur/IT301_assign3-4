@@ -15,6 +15,12 @@
                     <input type="text" name="name" placeholder="Username">
                     <input type="password" name="password" placeholder="Password">
                     <input type="submit" name="" value="Login" href="#">
+                    <label for="loginType">Нэвтрэх хэлбэр:</label>
+                    <select name="loginType">
+                        <option value="customer">Үйлчлүүлэгч</option>
+                        <option value="shop">Түрээслүүлэгч</option>
+                        <option value="admin">Админ</option>
+                    </select>
                     <div class="col-md-12">
                         <ul class="text-danger text-left">
                             @if($errors->any())
@@ -23,6 +29,7 @@
                             @endforeach
                             @endif
                         </ul>
+
                         @if(session('success'))
                         <h5 class="text-danger">{{session("success")}}</h5>
                         @endif
@@ -34,4 +41,7 @@
         </div>
     </div>
 </div>
+
+
+
 @endsection
