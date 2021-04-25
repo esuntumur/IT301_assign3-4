@@ -1,3 +1,4 @@
+@if(isset($name) && isset($password))
 <!DOCTYPE html>
 <html lang="en">
 
@@ -33,7 +34,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="mastershop/addcontent">Контент оруулах <span
+                    <a class="nav-link" href="masterShop/addcontent">Контент оруулах <span
                             class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
@@ -55,11 +56,25 @@
     <div class="container">
         @if(isset($contentid))
         <h1>name: {{$contentid}}</h1>
-       
- @endif
+
+        @endif
+
         @yield('content')
     </div>
 
+
 </body>
 
+
+
+
+
+
+
+
+
 </html>
+
+<h1>name: {{$name}}</h1>
+<h1>pass: {{$password}}</h1>
+@endif

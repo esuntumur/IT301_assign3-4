@@ -25,14 +25,12 @@ class loginController extends Controller
         foreach ($exist as $item) {
             if ($item->name == $request->name && $item->password == $request->password) {
                 if ($request->loginType == 'admin') {
-
                     return view('layout.masterAdmin', ['name' => $request->name, 'password' => $request->password]);
                 } else if ($request->loginType == 'customer') {
                     return view('layout.masterCustomer', ['name' => $request->name, 'password' => $request->password]);
                 } else if ($request->loginType == 'shop') {
-                    return
-                        view('layout.masterShop', ['name' => $request->name, 'password' => $request->password]);
-                    // -> redirect('masterShop');
+                    return view('layout.masterShop', ['name' => $request->name, 'password' => $request->password]);
+                    // return redirect('masterShop');
                 }
             }
         }
