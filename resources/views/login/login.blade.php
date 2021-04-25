@@ -1,8 +1,7 @@
 @extends('layout.master')
 @section('header')
-<link href="resources/css/login/login.css" rel="stylesheet" type="text/css">
-
-@endsection
+<link rel="stylesheet" href="{{ URL::asset('css/login/login.css') }}" />
+@stop
 @section('content')
 <div class="container">
     <div class="row">
@@ -15,12 +14,16 @@
                     <input type="text" name="name" placeholder="Username">
                     <input type="password" name="password" placeholder="Password">
                     <input type="submit" name="" value="Login" href="#">
-                    <label for="loginType">Нэвтрэх хэлбэр:</label>
-                    <select name="loginType">
+                    <a class="forgot text-muted d-block small" href="{{ url('signUp') }}">Sign up</a>
+                    <label class="text-white" for="loginType">Нэвтрэх хэлбэр:</label>
+                    <div class="container col-md-5">
+                        <select class="custom-select" name="loginType">
                         <option value="customer">Үйлчлүүлэгч</option>
                         <option value="shop">Түрээслүүлэгч</option>
                         <option value="admin">Админ</option>
                     </select>
+                    </div>
+                    
                     <div class="col-md-12">
                         <ul class="text-danger text-left">
                             @if($errors->any())
