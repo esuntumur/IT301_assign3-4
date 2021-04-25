@@ -18,7 +18,9 @@ Route::get('/', function () {
     return view('layout\master');
 });
 Route::get('/login', 'App\Http\Controllers\loginController@loginForm');
+Route::get('/signUp', 'App\Http\Controllers\signUpController@signUp');
 Route::post('/login', 'App\Http\Controllers\loginController@doLogin');
+Route::post('/signUp', 'App\Http\Controllers\signUpController@doSignUp');
 Route::get('/mastershop', function () {
     return view('layout.masterShop');
 });
