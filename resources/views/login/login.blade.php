@@ -3,29 +3,17 @@
 <link rel="stylesheet" href="{{ URL::asset('css/login/login.css') }}" />
 @stop
 @section('content')
-<!-- B170910031 Esuntumur -->
-<script>
-function get() {
-    let loginType = document.getElementById("loginType").value;
-    document.getElementById("form_id").action = "masterCustomer";
-    if (loginType == 'admin') {
-        document.getElementById("form_id").action = "masterAdmin";
-    } else if (loginType == 'customer') {} else if (loginType == 'shop') {
-        document.getElementById("form_id").action = "masterShop";
-    }
-}
-</script>
+
 <div class="container">
     <div class="row">
         <div class="col-md-6">
             <div>
-                <form onsubmit="getNotYet();" id="form_id" class="box" method="POST" action="/login">
+                <form id="form_id" class="box" method="POST" action="{{url('login')}}">
                     {{csrf_field()}}
                     <h1>Login</h1>
-                    <p class="text-muted"> Please enter your username and password!</p>
-                    <input type="text" name="name" placeholder="Username" id="name">
+                    <p class="text-muted"> Please enter your email and password!</p>
+                    <input type="text" name="email" placeholder="Email">
                     <input type="password" name="password" placeholder="Password">
-                    <input type="submit" name="" value="Login" href="#">
                     <a class="forgot text-muted d-block small" href="{{ url('signUp') }}">Sign up</a>
                     <label class="text-white" for="loginType">Нэвтрэх хэлбэр:</label>
                     <div class="container col-md-5">
@@ -35,7 +23,13 @@ function get() {
                             <option value="admin">Админ</option>
                         </select>
                     </div>
-
+                    <input type="submit" name="" value="Login" href="#">
+                    @if (isset($request))
+                    <div class="form-group col-md-6">
+                        <label>Token:</label>
+                        <input type="text" class="form-control" name="token" value="{{$request->api_token}}" readonly>
+                    </div>
+                    @endif
                     <div class="col-md-12">
                         <ul class="text-danger text-left">
                             @if($errors->any())

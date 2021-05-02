@@ -1,4 +1,3 @@
-@if(isset($name) && isset($password))
 <!DOCTYPE html>
 <html lang="en">
 
@@ -34,13 +33,17 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="masterShop/addcontent">Контент оруулах <span
+                    <a class="nav-link" href="{{url('mastershop/'.'addcontent')}}">Контент оруулах <span
                             class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">
                         Манай контентууд
                     </a>
+                </li>
+                <!-- TOKEN HERE by input:text -->
+                <li class="nav-item">
+                    <input type="text" name="token" id="" value="" readonly>
                 </li>
             </ul>
 
@@ -61,20 +64,13 @@
 
         @yield('content')
     </div>
-
+    @if(isset($user))
+    <h1>email: {{$user->email}}</h1>
+    <h1>pass: {{$user->password}}</h1>
+    <h1>name: {{$user->name}}</h1>
+    <h1>token: {{$token}}</h1>
+    @endif
 
 </body>
 
-
-
-
-
-
-
-
-
 </html>
-
-<h1>name: {{$name}}</h1>
-<h1>pass: {{$password}}</h1>
-@endif

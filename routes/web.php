@@ -21,3 +21,9 @@ Route::get('/login', 'App\Http\Controllers\loginController@loginForm');
 Route::post('/login', 'App\Http\Controllers\loginController@doLogin');
 Route::get('/signUp', 'App\Http\Controllers\signUpController@signUp');
 Route::post('/signUp', 'App\Http\Controllers\signUpController@doSignUp');
+
+// shop
+Route::get('/mastershop/addcontent', function () {
+    return view('shop.addContentForm');
+});
+Route::post('/mastershop/addcontent', 'App\Http\Controllers\shopController@doAddContent');

@@ -2,11 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Directory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-
-use function PHPUnit\Framework\returnSelf;
+use Illuminate\Support\Str;
 
 class loginController extends Controller
 {
@@ -19,21 +17,35 @@ class loginController extends Controller
         // TODO 1 => DB select checking
         $validated = $request->validate([
             'password' => 'required',
-            'name' => 'required',
+            'email' => 'required',
         ]);
-        $exist = DB::table($request->loginType)->get();
-        foreach ($exist as $item) {
-            if ($item->name == $request->name && $item->password == $request->password) {
-                if ($request->loginType == 'admin') {
-                    return view('layout.masterAdmin', ['name' => $request->name, 'password' => $request->password]);
-                } else if ($request->loginType == 'customer') {
-                    return view('layout.masterCustomer', ['name' => $request->name, 'password' => $request->password]);
-                } else if ($request->loginType == 'shop') {
-                    return view('layout.masterShop', ['name' => $request->name, 'password' => $request->password]);
-                    // return redirect('masterShop');
+        // check user exists by name, pass
+        $user = DB::table($request->loginType)->where('email', $request->email)
+            ->where('password', $request->password)
+            ->first();
+        if ($user) {
+            if ($user->email == $request->email && $user->password == $request->password) {
+                $token = Str::random(60);
+                DB::table($request->loginType)
+                    ->where('email', $request->email)
+                    ->update(["token" => $token]);
+                // redirect view by login type (үйлчлүүлэгч, админ, дэлгүүр)
+                switch ($request->loginType) {
+                    case 'admin':
+                        return view('layout.masterAdmin', ['user' => $user, 'token' => $token]);
+                        break;
+                    case 'customer':
+                        return view('layout.masterCustomer', ['user' => $user, 'token' => $token]);
+                        break;
+                    case 'shop':
+                        return view('layout.masterShop', ['user' => $user, 'token' => $token]);
+                        break;
+                    default:
+                        return 'invalid user';
+                        break;
                 }
             }
         }
-        return redirect()->back()->withSuccess("Таны оруулсан хэрэглэгч байхгүй байна.");
     }
 }
+return redirect()->back()->withSuccess("Таны оруулсан хэрэглэгч байхгүй байна.");

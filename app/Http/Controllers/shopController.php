@@ -7,8 +7,15 @@ use Illuminate\Support\Facades\DB;
 
 class shopController extends Controller
 {
-    public function addContentForm(Request $request)
+    public function doAddContent(Request $request)
     {
-        return view('layout.masterShop', ['contentId' => $request->contentId]);
+        $user = DB::table('shop')->where('email', $request->email)
+            ->where('token', $request->token);
+        if ($user) {
+            DB::table('content')->insert([
+                'contentId' => $request->contentId
+            ]);
+            return redirect()->back()->withSuccess('Таны оруулсан контент амжилттай нэмэгдлээ');
+        }
     }
 }

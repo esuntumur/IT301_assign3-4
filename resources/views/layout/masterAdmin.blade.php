@@ -1,4 +1,4 @@
-@if(isset($name) && isset($password))
+@if(isset($user))
 <!DOCTYPE html>
 <html lang="en">
 
@@ -72,8 +72,11 @@
 
 
 
-</html>
 
-<h1>name: {{$name}}</h1>
-<h1>pass: {{$password}}</h1>
+
+</html>
+<h1>email: {{$user->email}}</h1>
+<h1>pass: {{$user->password}}</h1>
+<h1>name: {{$user->name}}</h1>
+<h1>token: {{$token}}</h1>
 @endif
