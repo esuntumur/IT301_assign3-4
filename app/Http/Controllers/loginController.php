@@ -48,4 +48,4 @@ class loginController extends Controller
         }
     }
 }
-return redirect()->back()->withSuccess("Таны оруулсан хэрэглэгч байхгүй байна.");
+// return redirect()->back()->withSuccess(" байхгүй байна.");

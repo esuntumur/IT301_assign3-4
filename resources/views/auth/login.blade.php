@@ -8,13 +8,25 @@
     <div class="row">
         <div class="col-md-6">
             <div>
-                <form id="form_id" class="box" method="POST" action="{{url('login')}}">
+                <form id="form_id" class="box" method="POST" action="{{route('auth.check')}}">
                     {{csrf_field()}}
                     <h1>Login</h1>
+                    @if (Session::get('fail'))
+                        <div class="alert alert-danger">
+                        {{Session::get('fail')}}
+                    </div>
+                    @endif
+                    
                     <p class="text-muted"> Please enter your email and password!</p>
-                    <input type="text" name="email" placeholder="Email">
-                    <input type="password" name="password" placeholder="Password">
-                    <a class="forgot text-muted d-block small" href="{{ url('signUp') }}">Sign up</a>
+                    <input type="text" name="email" placeholder="Email" value="{{old('email')}}">
+                    <span class="text-danger">@error('email')
+                        {{$message}}
+                    @enderror</span>
+                    <input type="password" name="password" placeholder="Password" >
+                     <span class="text-danger">@error('password')
+                        {{$message}}
+                    @enderror</span>
+                    <a class="forgot text-muted d-block small" href="{{ route('auth.register') }}">Sign up</a>
                     <label class="text-white" for="loginType">Нэвтрэх хэлбэр:</label>
                     <div class="container col-md-5">
                         <select class="custom-select" name="loginType" id="loginType">
@@ -30,19 +42,6 @@
                         <input type="text" class="form-control" name="token" value="{{$request->api_token}}" readonly>
                     </div>
                     @endif
-                    <div class="col-md-12">
-                        <ul class="text-danger text-left">
-                            @if($errors->any())
-                            @foreach($errors -> all() as $error)
-                            <li>{{$error}}</li>
-                            @endforeach
-                            @endif
-                        </ul>
-
-                        @if(session('success'))
-                        <h5 class="text-danger">{{session("success")}}</h5>
-                        @endif
-                    </div>
                 </form>
 
             </div>

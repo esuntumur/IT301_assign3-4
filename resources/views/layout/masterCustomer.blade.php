@@ -1,4 +1,3 @@
-@if(isset($user))
 <!DOCTYPE html>
 <html lang="en">
 
@@ -20,7 +19,7 @@
 </head>
 
 <body>
-    <n class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <a class="navbar-brand" href="/">MovieBox</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -33,8 +32,8 @@
             </form>
         </div>
 
-    </n av av>
-    <h1>Customer home</h1>
+    </nav>
+    {{-- <h1>Customer home</h1>
 
     <h1>email: {{$user->email}}</h1>
     <h1>pass: {{$user->password}}</h1>
@@ -43,21 +42,9 @@
 
     @if(isset($contentid))
     <h1>name: {{$contentid}}</h1>
-    @endif
+    @endif --}}
     @yield('content')
-
-
-
-
-
-
-
-
-
-
 
 </body>
 
 </html>
-
-@endif

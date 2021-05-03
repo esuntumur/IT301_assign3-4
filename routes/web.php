@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\MainController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,13 +18,30 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('layout\master');
 });
-Route::get('/login', 'App\Http\Controllers\loginController@loginForm');
-Route::post('/login', 'App\Http\Controllers\loginController@doLogin');
-Route::get('/signUp', 'App\Http\Controllers\signUpController@signUp');
-Route::post('/signUp', 'App\Http\Controllers\signUpController@doSignUp');
+// Route::get('/login', 'App\Http\Controllers\loginController@loginForm');
+// Route::post('/login', 'App\Http\Controllers\loginController@doLogin');
+// Route::get('/signUp', 'App\Http\Controllers\signUpController@signUp');
+// Route::post('/signUp', 'App\Http\Controllers\signUpController@doSignUp');
 
 // shop
-Route::get('/mastershop/addcontent', function () {
-    return view('shop.addContentForm');
+// Route::get('/mastershop/addcontent', function () {
+//     return view('shop.addContentForm');
+// });
+// Route::post('/mastershop/addcontent', 'App\Http\Controllers\shopController@doAddContent');
+
+
+
+
+//////////////////////////////////////////////////////AUTH
+
+Route::post('auth/save', [MainController::class, 'save'])->name('auth.save');
+Route::post('/auth/check',[MainController::class, 'check'])->name('auth.check');
+Route::get('/auth/logout', [MainController::class, 'logOut'])->name('auth.logout');
+
+Route::group(['middleware'=>['AuthCheck']], function(){
+    Route::get('/admin/dashboard',[MainController::class, 'dashboardAdmin']);
+    Route::get('/customer/dashboard',[MainController::class, 'dashboardCustomer']);
+    Route::get('/shop/dashboard',[MainController::class, 'dashboardShop']);
+    Route::get('/auth/login', [MainController::class, 'login'])->name('auth.login');
+    Route::get('/auth/register', [MainController::class, 'register'])->name('auth.register');
 });
-Route::post('/mastershop/addcontent', 'App\Http\Controllers\shopController@doAddContent');
