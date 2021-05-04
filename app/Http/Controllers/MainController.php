@@ -6,21 +6,20 @@ use Illuminate\Http\Request;
 use App\Models\shop;
 use App\Models\customer;
 use App\Models\admin;
+use App\Models\content;
 use Illuminate\Contracts\Session\Session;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class MainController extends Controller
 {
-    public function login()
-    {
+    public function login(){
         return view('auth.login');
     }
-    public function register()
-    {
+    public function register(){
         return view('auth.register');
     }
-    public function save( Request $request)
-    {
+    public function save( Request $request){
         // return $request->tab;
         if($request->tab=="one")
         {
@@ -148,20 +147,26 @@ class MainController extends Controller
          $data = ['LoggedInfo'=>customer::where('id', '=', session('LoggedCustomer'))->first()];
         return view('customer.dashboard', $data);
     }
+    function searchContent(Request $request){
+        $data = ['LoggedInfo'=>content::where('name','LIKE','%'.$request->search.'%')
+                                        ->orwhere('type','LIKE','%'.$request->search.'%')
+                                        ->orwhere('author','LIKE','%'.$request->search.'%')
+                                        ->orwhere('producer','LIKE','%'.$request->search.'%')
+                                        ->get()];
+        //$data = content::where('name','LIKE','%'.$request->search.'%')->get();
+        return view('customer.search', $data);
+    }
     function dashboardShop(){
          $data = ['LoggedInfo'=>shop::where('id', '=', session('LoggedShop'))->first()];
         return view('shop.dashboard', $data);
     }
-    function addContent()
-    {
+    function addContent(){
         return view('shop.addContent');
     }
-    function myContent()
-    {
+    function myContent(){
         return view('shop.myContent');
     }
-    function logOut()
-    {
+    function logOut(){
         if(Session()->has('LoggedCustomer'))
         {
             session()->pull('LoggedCustomer');

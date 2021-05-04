@@ -46,7 +46,6 @@
             <label class="col-md-4 control-label" for="rentQuantity">RENT QUANTITY</label>
             <div class="col-md-4">
                 <input id="rentQuantity" name="rentQuantity" placeholder="RENT QUANTITY" class="form-control input-md" required="" type="text">
-
             </div>
         </div>
         <!-- Button -->
