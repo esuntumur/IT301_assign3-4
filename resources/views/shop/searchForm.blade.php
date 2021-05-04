@@ -1,50 +1,29 @@
 @extends('layout.masterShop')
 @section('content')
 <!------ Include the above in your HEAD tag ---------->
-<form class="form-horizontal" method="GET" action="{{route('shop.search')}}">
+<form class="form-inline mb-4" method="GET" action="{{route('shop.search')}}">
     {{csrf_field()}}
         <!-- Form Name -->
-        <legend>ADD CONTENT</legend>
-        <hr>
+        <legend>ADD CONTENT</legend><hr>
         <!-- Text input-->
         <div class="form-group">
-            <div class="col-md-4">
-                <input id="contentId" name="search" placeholder="Search movie" class="form-control input-md" required="" type="text">
-            </div>
+                <input id="contentId" name="search" placeholder="Search movie" class="form-control input-md " required="" type="text">
         </div>
-        <!-- Button -->
-        <div class="form-group">
-            <div class="col-md-4">
+        <div class="form-group ml-3">
                 <button id="singlebutton" type="submit" class="btn btn-primary">Search</button>
-            </div>
         </div>
 </form>
 @if (isset($LoggedInfo))
-        <table class="table table-dark">
-  <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">Нэр</th>
-      <th scope="col">Зохиолч</th>
-      <th scope="col">Найруулагч</th>
-      <th scope="col">төрөл</th>
-      <th scope="col">Хугацаа</th>
-      <th scope="col"><a href="">add</a></th>
-    </tr>
-  </thead>
-  <tbody>
+         <div class="card-deck">
         @foreach ($LoggedInfo as $item)
-          <tr>
-            <th scope="row">{{$item['id']}}</th>
-            <td>{{$item['name']}}</td>
-            <td>{{$item['author']}}</td>
-            <td>{{$item['producer']}}</td>
-            <td>{{$item['type']}}</td>
-             <td>{{$item['duration']}}</td>
-        </tr>
+          <div class="card mx-3" style="max-width: 18rem;">
+              <img class="card-img-top" src="https://4.bp.blogspot.com/-oqtrufvgsh0/WnP_Dbo3YeI/AAAAAAAAAI8/1FlcPrH_FdI1s53hkV-Y5_HqChsGf3PPACLcBGAs/s1600/spiderman-1.jpg" alt="Card image cap">
+              <div class="card-body">
+                <a class="card-link" href="{{url('/shop/addContent/'.$item->id)}}">{{$item['name']}}</a>
+              </div>
+          </div>
         @endforeach
-  </tbody>
-</table>
+         </div>
 
     @endif
 
