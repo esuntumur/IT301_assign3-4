@@ -23,10 +23,10 @@ class AuthCheck
         if(session()->has('LoggedCustomer') && ($request->path()== 'auth/login'|| $request->path()=='auth/register'||$request->path()=='admin/dashboard'||$request->path()=='/')){
             return back();
         }
-        if(session()->has('LoggedAdmin') && ($request->path()== 'auth/login'|| $request->path()=='auth/register'||$request->path()=='customer/dashboard'||$request->path()=='shop/dashboard'||$request->path()=='/')){
+        if(session()->has('LoggedAdmin') && ($request->path()== 'auth/login'|| $request->path()=='auth/register'||$request->path()=='customer/dashboard'||$request->path()=='shop/dashboard'||$request->path()=='/'||$request->path()=='customer/search')){
             return back();
         }
-        if(session()->has('LoggedShop') && ($request->path()== 'auth/login'|| $request->path()=='auth/register'||$request->path()=='admin/dashboard'||$request->path()=='customer/dashboard'||$request->path()=='/')){
+        if(session()->has('LoggedShop') && ($request->path()== 'auth/login'|| $request->path()=='auth/register'||$request->path()=='admin/dashboard'||$request->path()=='customer/dashboard'||$request->path()=='/'||$request->path()=='customer/search')){
             return back();
         }
         return $next($request)->header('Cache-Control','no-cache, no-store, max-age=0, must-revalidate')
