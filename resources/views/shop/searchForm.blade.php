@@ -24,7 +24,10 @@
           </div>
         @endforeach
          </div>
-
     @endif
+    @if(isset($fail))
+<h3 class="text-success">{{$fail}}</h3>
+<a href="{{route('shop.createContent')}}">Шинээр контент үүсгэх</a>
+@endif
 
 @endsection
