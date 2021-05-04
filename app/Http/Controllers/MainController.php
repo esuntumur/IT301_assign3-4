@@ -152,6 +152,14 @@ class MainController extends Controller
          $data = ['LoggedInfo'=>shop::where('id', '=', session('LoggedShop'))->first()];
         return view('shop.dashboard', $data);
     }
+    function addContent()
+    {
+        return view('shop.addContent');
+    }
+    function myContent()
+    {
+        return view('shop.myContent');
+    }
     function logOut()
     {
         if(Session()->has('LoggedCustomer'))

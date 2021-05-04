@@ -16,17 +16,17 @@ class AuthCheck
      */
     public function handle(Request $request, Closure $next)
     {
-        if((!session()->has('LoggedCustomer')&&!session()->has('LoggedAdmin')&&!session()->has('LoggedShop')) && ($request->path()!= 'auth/login'&& $request->path()!='auth/register'))
+        if((!session()->has('LoggedCustomer')&&!session()->has('LoggedAdmin')&&!session()->has('LoggedShop')) && ($request->path()!= 'auth/login'&& $request->path()!='auth/register'&&$request->path()!='/'))
         {
             return redirect('auth/login')->with('fail','нэвтрэх шаадлагатай');
         }
-        if(session()->has('LoggedCustomer') && ($request->path()== 'auth/login'|| $request->path()=='auth/register'||$request->path()=='admin/dashboard'||$request->path()=='shop/dashboard')){
+        if(session()->has('LoggedCustomer') && ($request->path()== 'auth/login'|| $request->path()=='auth/register'||$request->path()=='admin/dashboard'||$request->path()=='/')){
             return back();
         }
-        if(session()->has('LoggedAdmin') && ($request->path()== 'auth/login'|| $request->path()=='auth/register'||$request->path()=='customer/dashboard'||$request->path()=='shop/dashboard')){
+        if(session()->has('LoggedAdmin') && ($request->path()== 'auth/login'|| $request->path()=='auth/register'||$request->path()=='customer/dashboard'||$request->path()=='shop/dashboard'||$request->path()=='/')){
             return back();
         }
-        if(session()->has('LoggedShop') && ($request->path()== 'auth/login'|| $request->path()=='auth/register'||$request->path()=='admin/dashboard'||$request->path()=='customer/dashboard')){
+        if(session()->has('LoggedShop') && ($request->path()== 'auth/login'|| $request->path()=='auth/register'||$request->path()=='admin/dashboard'||$request->path()=='customer/dashboard'||$request->path()=='/')){
             return back();
         }
         return $next($request)->header('Cache-Control','no-cache, no-store, max-age=0, must-revalidate')

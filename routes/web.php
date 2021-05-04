@@ -15,9 +15,9 @@ use App\Http\Controllers\MainController;
 // лаб-6
  */
 
-Route::get('/', function () {
-    return view('layout\master');
-});
+// Route::get('/', function () {
+//     return view('layout\master');
+// });
 // Route::get('/login', 'App\Http\Controllers\loginController@loginForm');
 // Route::post('/login', 'App\Http\Controllers\loginController@doLogin');
 // Route::get('/signUp', 'App\Http\Controllers\signUpController@signUp');
@@ -33,12 +33,17 @@ Route::get('/', function () {
 
 
 //////////////////////////////////////////////////////AUTH
-
+ 
 Route::post('auth/save', [MainController::class, 'save'])->name('auth.save');
 Route::post('/auth/check',[MainController::class, 'check'])->name('auth.check');
 Route::get('/auth/logout', [MainController::class, 'logOut'])->name('auth.logout');
 
 Route::group(['middleware'=>['AuthCheck']], function(){
+   Route::get('/', function(){
+        return view('auth.login');
+    });
+    Route::get('/shop/addContent',[MainController::class, 'addContent'])->name('shop.addContent');
+    Route::get('/shop/myContent',[MainController::class, 'myContent'])->name('shop.myContent');
     Route::get('/admin/dashboard',[MainController::class, 'dashboardAdmin']);
     Route::get('/customer/dashboard',[MainController::class, 'dashboardCustomer']);
     Route::get('/shop/dashboard',[MainController::class, 'dashboardShop']);

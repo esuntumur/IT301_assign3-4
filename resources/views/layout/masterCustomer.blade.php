@@ -31,20 +31,8 @@
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
             </form>
         </div>
-
     </nav>
-    {{-- <h1>Customer home</h1>
-
-    <h1>email: {{$user->email}}</h1>
-    <h1>pass: {{$user->password}}</h1>
-    <h1>name: {{$user->name}}</h1>
-    <h1>token: {{$token}}</h1>
-
-    @if(isset($contentid))
-    <h1>name: {{$contentid}}</h1>
-    @endif --}}
     @yield('content')
-
 </body>
 
 </html>
