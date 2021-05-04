@@ -21,3 +21,4 @@ Route::get('/login', 'App\Http\Controllers\loginController@loginForm');
 Route::post('/login', 'App\Http\Controllers\loginController@doLogin');
 Route::get('/signUp', 'App\Http\Controllers\signUpController@signUp');
 Route::post('/signUp', 'App\Http\Controllers\signUpController@doSignUp');
+Route::post('/signUp', 'App\Http\Controllers\signUpController@doSignUp');
