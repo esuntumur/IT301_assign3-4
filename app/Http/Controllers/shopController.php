@@ -18,4 +18,12 @@ class shopController extends Controller
             return redirect()->back()->withSuccess('Таны оруулсан контент амжилттай нэмэгдлээ');
         }
     }
+    function addContent()
+    {
+        return view('shop.addContent');
+    }
+    function myContent()
+    {
+        return view('shop.myContent');
+    }
 }

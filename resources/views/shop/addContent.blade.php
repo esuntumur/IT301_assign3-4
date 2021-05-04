@@ -8,10 +8,6 @@
         <hr>
         <!-- Text input-->
         <div class="form-group">
-            <label for="formGroupExampleInput">Example label</label>
-            <input type="text" class="form-control" placeholder="Example input">
-        </div>
-        <div class="form-group">
             <label class="col-md-4 control-label" for="contentId">CONTENT ID</label>
             <div class="col-md-4">
                 <input id="contentId" name="contentId" placeholder="CONTENT ID" class="form-control input-md" required="" type="text">
@@ -46,7 +42,6 @@
             <label class="col-md-4 control-label" for="rentQuantity">RENT QUANTITY</label>
             <div class="col-md-4">
                 <input id="rentQuantity" name="rentQuantity" placeholder="RENT QUANTITY" class="form-control input-md" required="" type="text">
-
             </div>
         </div>
         <!-- Button -->

@@ -33,20 +33,20 @@ use App\Http\Controllers\MainController;
 
 
 //////////////////////////////////////////////////////AUTH
- 
+
 Route::post('auth/save', [MainController::class, 'save'])->name('auth.save');
-Route::post('/auth/check',[MainController::class, 'check'])->name('auth.check');
+Route::post('/auth/check', [MainController::class, 'check'])->name('auth.check');
 Route::get('/auth/logout', [MainController::class, 'logOut'])->name('auth.logout');
 
-Route::group(['middleware'=>['AuthCheck']], function(){
-   Route::get('/', function(){
+Route::group(['middleware' => ['AuthCheck']], function () {
+    Route::get('/', function () {
         return view('auth.login');
     });
-    Route::get('/shop/addContent',[MainController::class, 'addContent'])->name('shop.addContent');
-    Route::get('/shop/myContent',[MainController::class, 'myContent'])->name('shop.myContent');
-    Route::get('/admin/dashboard',[MainController::class, 'dashboardAdmin']);
-    Route::get('/customer/dashboard',[MainController::class, 'dashboardCustomer']);
-    Route::get('/shop/dashboard',[MainController::class, 'dashboardShop']);
+    Route::get('/shop/dashboard', [MainController::class, 'dashboardShop'])->name('shop.dashboard');
+    Route::get('/shop/addContent', [MainController::class, 'addContent'])->name('shop.addContent'); // todo
+    Route::get('/shop/myContent', [MainController::class, 'myContent'])->name('shop.myContent');
+    Route::get('/admin/dashboard', [MainController::class, 'dashboardAdmin']);
+    Route::get('/customer/dashboard', [MainController::class, 'dashboardCustomer']);
     Route::get('/auth/login', [MainController::class, 'login'])->name('auth.login');
     Route::get('/auth/register', [MainController::class, 'register'])->name('auth.register');
 });

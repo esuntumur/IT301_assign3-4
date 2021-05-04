@@ -19,22 +19,21 @@ class MainController extends Controller
     {
         return view('auth.register');
     }
-    public function save( Request $request)
+    public function save(Request $request)
     {
         // return $request->tab;
-        if($request->tab=="one")
-        {
-              $request->validate([
-            'ovog'=>'required',
-            'name'=>'required',
-            'email'=>'required|email|unique:customers,email',
-            'phone'=>'required',
-            'register'=>'required',
-            'address'=>'required',
-            'password'=>'required|min:5|max:12',
-            'birthdate'=>'required',
-            'gender'=>'required'
-        ]);
+        if ($request->tab == "one") {
+            $request->validate([
+                'ovog' => 'required',
+                'name' => 'required',
+                'email' => 'required|email|unique:customers,email',
+                'phone' => 'required',
+                'register' => 'required',
+                'address' => 'required',
+                'password' => 'required|min:5|max:12',
+                'birthdate' => 'required',
+                'gender' => 'required'
+            ]);
             $customer = new customer();
             $customer->ovog = $request->ovog;
             $customer->name = $request->name;
@@ -48,22 +47,20 @@ class MainController extends Controller
 
             $save = $customer->save();
 
-            if($save)
-            {
+            if ($save) {
                 return back()->with('success', 'Амжилттай бүртгэгдлээ');
-            }else {
+            } else {
                 return back()->with('fail', 'Алдаа гарлаа дахин оролдоно уу');
             }
-        }
-        else if($request->tab=="two") {
+        } else if ($request->tab == "two") {
             $request->validate([
-            'name2'=>'required',
-            'email2'=>'required|email|unique:shops,email',
-            'phone2'=>'required',
-            'address2'=>'required',
-            'password2'=>'required|min:5|max:12',
+                'name2' => 'required',
+                'email2' => 'required|email|unique:shops,email',
+                'phone2' => 'required',
+                'address2' => 'required',
+                'password2' => 'required|min:5|max:12',
             ]);
-            
+
             $shop = new shop();
             $shop->name = $request->name2;
             $shop->address = $request->address2;
@@ -73,106 +70,86 @@ class MainController extends Controller
 
             $save = $shop->save();
 
-            if($save)
-            {
+            if ($save) {
                 return back()->with('success', 'Амжилттай бүртгэгдлээ');
-            }else {
+            } else {
                 return back()->with('fail', 'Алдаа гарлаа дахин оролдоно уу');
             }
         }
     }
-    function check(Request $request){
+    function check(Request $request)
+    {
         // return $request->input();
         $request->validate([
             $request->validate([
-                'email'=>'required',
-                'password'=>'required|min:5|max:12'
+                'email' => 'required',
+                'password' => 'required|min:5|max:12'
             ])
         ]);
-        if($request->loginType == "customer")
-        {
+        if ($request->loginType == "customer") {
             $customerInfo = customer::where('email', '=', $request->email)->first();
-            if(!$customerInfo)
-            {
+            if (!$customerInfo) {
                 return back()->with('fail', 'Таны майл хаяг буруу байна.');
-            }
-            else {
-                if(Hash::check($request->password, $customerInfo->password)){
+            } else {
+                if (Hash::check($request->password, $customerInfo->password)) {
                     $request->session()->put('LoggedCustomer', $customerInfo->id);
                     return redirect('customer/dashboard');
-                }
-                else {
+                } else {
                     return back()->with('fail', 'Таны нууц үг буруу байна.');
                 }
             }
-        }
-        elseif ($request->loginType == "shop") {
-              $shopInfo = shop::where('email', '=', $request->email)->first();
-            if(!$shopInfo)
-            {
+        } elseif ($request->loginType == "shop") {
+            $shopInfo = shop::where('email', '=', $request->email)->first();
+            if (!$shopInfo) {
                 return back()->with('fail', 'Таны майл хаяг буруу байна.');
-            }
-            else {
-                if(Hash::check($request->password, $shopInfo->password)){
+            } else {
+                if (Hash::check($request->password, $shopInfo->password)) {
                     $request->session()->put('LoggedShop', $shopInfo->id);
                     return redirect('shop/dashboard');
-                }
-                else {
+                } else {
                     return back()->with('fail', 'Таны нууц үг буруу байна.');
                 }
             }
-        }
-        elseif ($request->loginType == "admin") {
-             $adminInfo = admin::where('email', '=', $request->email)->first();
-            if(!$adminInfo)
-            {
+        } elseif ($request->loginType == "admin") {
+            $adminInfo = admin::where('email', '=', $request->email)->first();
+            if (!$adminInfo) {
                 return back()->with('fail', 'Таны майл хаяг буруу байна.');
-            }
-            else {
-                if($request->password==$adminInfo->password){
+            } else {
+                if ($request->password == $adminInfo->password) {
                     $request->session()->put('LoggedAdmin', $adminInfo->id);
                     return redirect('admin/dashboard');
-                }
-                else {
+                } else {
                     return back()->with('fail', 'Таны нууц үг буруу байна.');
                 }
             }
         }
     }
-    function dashboardAdmin(){
-       $data = ['LoggedInfo'=>admin::where('id', '=', session('LoggedAdmin'))->first()];
-        return view('admin.dashboard', $data );
-
+    function dashboardAdmin()
+    {
+        $data = ['LoggedInfo' => admin::where('id', '=', session('LoggedAdmin'))->first()];
+        return view('admin.dashboard', $data);
     }
-    function dashboardCustomer(){
-         $data = ['LoggedInfo'=>customer::where('id', '=', session('LoggedCustomer'))->first()];
+    function dashboardCustomer()
+    {
+        $data = ['LoggedInfo' => customer::where('id', '=', session('LoggedCustomer'))->first()];
         return view('customer.dashboard', $data);
     }
-    function dashboardShop(){
-         $data = ['LoggedInfo'=>shop::where('id', '=', session('LoggedShop'))->first()];
+    function dashboardShop()
+    {
+        $data = ['LoggedInfo' => shop::where('id', '=', session('LoggedShop'))->first()];
         return view('shop.dashboard', $data);
     }
-    function addContent()
-    {
-        return view('shop.addContent');
-    }
-    function myContent()
-    {
-        return view('shop.myContent');
-    }
+
     function logOut()
     {
-        if(Session()->has('LoggedCustomer'))
-        {
+        if (Session()->has('LoggedCustomer')) {
             session()->pull('LoggedCustomer');
             return redirect('/auth/login');
-        }
-        elseif (Session()->has('LoggedAdmin')) {
-             session()->pull('LoggedAdmin');
+        } elseif (Session()->has('LoggedAdmin')) {
+            session()->pull('LoggedAdmin');
             return redirect('/auth/login');
-        }
-        else  if(Session()->has('LoggedShop')){
-             session()->pull('LoggedShop');
+        } else  if (Session()->has('LoggedShop')) {
+            session()->pull('LoggedShop');
             return redirect('/auth/login');
         }
     }
