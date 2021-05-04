@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Models\shop;
+use App\Http\Controllers\MainController;
+use App\Models\content;
 
 class shopController extends Controller
 {
@@ -18,10 +21,28 @@ class shopController extends Controller
             return redirect()->back()->withSuccess('Таны оруулсан контент амжилттай нэмэгдлээ');
         }
     }
-    function addContent()
+    //
+    function dashboardShop()
     {
-        return view('shop.addContent');
+        $data = ['LoggedInfo' => shop::where('id', '=', session('LoggedShop'))->first()];
+        return view('shop.dashboard', $data);
     }
+    //
+    function searchForm(Request $request)
+    {
+        return view('shop.searchForm');
+    }
+    function searchContent(Request $request)
+    {
+        $data = ['LoggedInfo' => content::where('name', 'LIKE', '%' . $request->search . '%')
+            ->orwhere('type', 'LIKE', '%' . $request->search . '%')
+            ->orwhere('author', 'LIKE', '%' . $request->search . '%')
+            ->orwhere('producer', 'LIKE', '%' . $request->search . '%')
+            ->get()];
+        //$data = content::where('name','LIKE','%'.$request->search.'%')->get();
+        return view('shop.searchForm', $data);
+    }
+    //
     function myContent()
     {
         return view('shop.myContent');

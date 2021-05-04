@@ -6,7 +6,9 @@ use Illuminate\Http\Request;
 use App\Models\shop;
 use App\Models\customer;
 use App\Models\admin;
+use App\Models\content;
 use Illuminate\Contracts\Session\Session;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class MainController extends Controller
@@ -134,12 +136,16 @@ class MainController extends Controller
         $data = ['LoggedInfo' => customer::where('id', '=', session('LoggedCustomer'))->first()];
         return view('customer.dashboard', $data);
     }
-    function dashboardShop()
+    function searchContent(Request $request)
     {
-        $data = ['LoggedInfo' => shop::where('id', '=', session('LoggedShop'))->first()];
-        return view('shop.dashboard', $data);
+        $data = ['LoggedInfo' => content::where('name', 'LIKE', '%' . $request->search . '%')
+            ->orwhere('type', 'LIKE', '%' . $request->search . '%')
+            ->orwhere('author', 'LIKE', '%' . $request->search . '%')
+            ->orwhere('producer', 'LIKE', '%' . $request->search . '%')
+            ->get()];
+        //$data = content::where('name','LIKE','%'.$request->search.'%')->get();
+        return view('customer.search', $data);
     }
-
     function logOut()
     {
         if (Session()->has('LoggedCustomer')) {

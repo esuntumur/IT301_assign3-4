@@ -1,6 +1,6 @@
 @extends('layout.masterCustomer')
 @section('content')
-    <h1>Customer</h1>
+    <h1>Search</h1>
     @if (isset($LoggedInfo))
         <table class="table table-dark">
   <thead>
@@ -22,12 +22,12 @@
             <td>{{$item['producer']}}</td>
             <td>{{$item['type']}}</td>
              <td>{{$item['duration']}}</td>
-        </tr>   
+        </tr>
         @endforeach
   </tbody>
 </table>
-      
+
     @endif
-    
+
     <h3><a href="{{route('auth.logout')}}">Logout</a></h3>
 @endsection
