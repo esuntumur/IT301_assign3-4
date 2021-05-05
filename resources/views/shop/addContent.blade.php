@@ -1,34 +1,24 @@
 @extends('layout.masterShop')
-
 @section('content')
-<link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 <!------ Include the above in your HEAD tag ---------->
-
-<form class="form-horizontal" method="POST" action="/mastershop">
+<form class="form-horizontal" method="POST" action="">
     {{csrf_field()}}
-    <fieldset>
-
-        <!-- Form Name -->
-        <legend>ADD CONTENT</legend>
+        <!-- Form Name -
+        <legend>ADD CONTENT</legend
+        <hr>
 
         <!-- Text input-->
         <div class="form-group">
             <label class="col-md-4 control-label" for="contentId">CONTENT ID</label>
             <div class="col-md-4">
-                <input id="contentId" name="contentId" placeholder="CONTENT ID" class="form-control input-md"
-                    required="" type="text">
-
+                <input id="contentId" name="contentId"  class="form-control input-md" value="{{$content->id}}" type="text" readonly>
             </div>
         </div>
-
         <!-- Text input-->
         <div class="form-group">
             <label class="col-md-4 control-label" for="contenQuantity">CONTENT QUANTITY</label>
             <div class="col-md-4">
-                <input id="contenQuantity" name="contenQuantity" placeholder="CONTENT QUANTITY"
-                    class="form-control input-md" required="" type="text">
+                <input id="contenQuantity" name="quantity"  class="form-control input-md" required="" type="text">
             </div>
         </div>
 
@@ -36,8 +26,7 @@
         <div class="form-group">
             <label class="col-md-4 control-label" for="contenPrice">CONTENT PRICE</label>
             <div class="col-md-4">
-                <input id="contenPrice" name="contenPrice" placeholder="CONTENT PRICE" class="form-control input-md"
-                    required="" type="text">
+                <input id="contenPrice" name="price"  class="form-control input-md" required="" type="text">
 
             </div>
         </div>
@@ -45,8 +34,7 @@
         <div class="form-group">
             <label class="col-md-4 control-label" for="shopId">SHOP ID</label>
             <div class="col-md-4">
-                <input id="shopId" name="shopId" placeholder="SHOP ID" class="form-control input-md" required=""
-                    type="text">
+                <input id="shopId" name="shopId" value="{{Session()->get('LoggedShop')}}" class="form-control input-md" type="text" readonly>
 
             </div>
         </div>
@@ -54,32 +42,25 @@
         <div class="form-group">
             <label class="col-md-4 control-label" for="rentQuantity">RENT QUANTITY</label>
             <div class="col-md-4">
-                <input id="rentQuantity" name="rentQuantity" placeholder="RENT QUANTITY" class="form-control input-md"
-                    required="" type="text">
-
+                <input id="rentQuantity" name="rentQuantity"  class="form-control input-md" required="" type="text">
             </div>
         </div>
-
         <!-- Button -->
-        <d class="form-group">
-            <label class="col-md-4 control-label" for="singlebutton">ADD CONTENT</label>
+        <div class="form-group">
             <div class="col-md-4">
                 <button id="singlebutton" name="singlebutton" class="btn btn-primary">ADD</button>
-
-
-
-
-
-
-
-
-
-
             </div>
-        </d
- iv>
-
-    </fieldset>
+        </div>
 </form>
+<ul>
+    @if($errors->any())
+    @foreach($errors -> all() as $error)
+    <li>{{$error}}</li>
+    @endforeach
+    @endif
+</ul>
+@if(session('success'))
+<h3 class="text-success">{{session("success")}}</h3>
+@endif
 
 @endsection
