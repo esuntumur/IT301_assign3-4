@@ -20,7 +20,7 @@
 
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="{{route('customer.dashboard')}}">ContentBox</a>
+        <a class="navbar-brand" href="{{route('customer.dashboard')}}">Dashboard</a>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 {{-- <li class="nav-item">
@@ -39,7 +39,7 @@
     <div class="container">
          @yield('content')
     </div>
-   
+
 </body>
 
 </html>

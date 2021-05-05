@@ -42,7 +42,11 @@ class shopController extends Controller
     //
     function myContent()
     {
-        return view('shop.myContent');
+        $myContents = storage::join('contents', 'contents.id', '=', 'storages.contentId')
+            ->select('contents.name', 'contents.author', 'storages.contentId', 'storages.quantity', 'storages.price', 'storages.rentQuantity')
+            ->where('shopId', Session()->get('LoggedShop'))
+            ->get();
+        return view('shop.myContent', compact('myContents'));
     }
     function addContent($id)
     {
@@ -77,7 +81,6 @@ class shopController extends Controller
         $content->type = $request->type;
         $content->duration = $request->duration;
         $content->save();
-
         return redirect()->back()->withSuccess('Таны оруулсан контент амжилттай нэмэгдлээ');
     }
 }
