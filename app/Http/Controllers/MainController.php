@@ -95,6 +95,7 @@ class MainController extends Controller
             } else {
                 if (Hash::check($request->password, $customerInfo->password)) {
                     $request->session()->put('LoggedCustomer', $customerInfo->id);
+                    $request->session()->put('LoggedCustomerName', $customerInfo->name);
                     return redirect('customer/dashboard');
                 } else {
                     return back()->with('fail', 'Таны нууц үг буруу байна.');
@@ -130,6 +131,11 @@ class MainController extends Controller
     {
         $data = ['LoggedInfo' => admin::where('id', '=', session('LoggedAdmin'))->first()];
         return view('admin.dashboard', $data);
+    }
+    function dashboardHome()
+    {
+        $data = ['LoggedInfo' => admin::where('id', '=', session('LoggedCustomer'))->first()];
+        return view('customer.home', $data);
     }
     function dashboardCustomer()
     {

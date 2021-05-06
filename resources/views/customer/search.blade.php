@@ -1,6 +1,7 @@
 @extends('layout.masterCustomer')
 @section('content')
     <h1>Search</h1>
+    <hr>
     @if (isset($LoggedInfo))
     <div class="card-deck">
         @foreach ($LoggedInfo as $item)
@@ -13,5 +14,4 @@
         @endforeach
          </div>
     @endif
-    <h3><a href="{{route('auth.logout')}}">Logout</a></h3>
 @endsection

@@ -53,6 +53,7 @@ Route::group(['middleware' => ['AuthCheck']], function () {
     Route::get('/shop/search', [shopController::class, 'searchContent'])->name('shop.search');
     Route::get('/admin/dashboard', [MainController::class, 'dashboardAdmin']);
     Route::get('/customer/dashboard', [MainController::class, 'dashboardCustomer'])->name('customer.dashboard');
+    Route::get('/customer/home', [MainController::class, 'dashboardHome'])->name('customer.home');
     Route::get('/customer/search', [MainController::class, 'searchContent'])->name('content.search');
     Route::get('/auth/login', [MainController::class, 'login'])->name('auth.login');
     Route::get('/auth/register', [MainController::class, 'register'])->name('auth.register');
