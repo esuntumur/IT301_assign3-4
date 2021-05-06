@@ -5,8 +5,9 @@ p {
   font-size: 20px;
   line-height: 14px;
 }
+
 </style>
-    <h1 class="text-red my-4">My contents</h1>
+    <h1 class="mycontent-title my-4">Миний контент</h1>
     @if (isset($myContents))
         <div class="card-deck">
         @foreach ($myContents as $content)
