@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\shopController;
-
+//  sda
 Route::post('auth/save', [MainController::class, 'save'])->name('auth.save');
 Route::post('/auth/check', [MainController::class, 'check'])->name('auth.check');
 Route::get('/auth/logout', [MainController::class, 'logOut'])->name('auth.logout');
