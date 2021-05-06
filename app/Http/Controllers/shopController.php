@@ -29,13 +29,24 @@ class shopController extends Controller
             ->orwhere('author', 'LIKE', '%' . $request->search . '%')
             ->orwhere('producer', 'LIKE', '%' . $request->search . '%')
             ->get()];
-        //$data = content::where('name','LIKE','%'.$request->search.'%')->get();
-        return view('shop.searchForm', $data);
+        // return count($data['LoggedInfo']) == 0;
+        if (count($data['LoggedInfo']) == 0) // $data['LoggedInfo'] = [datasd ds af]
+        {
+            $data['fail'] = "Таны хайсан контент олдсонгүй. Шинээр нэмнэ үү.";
+            // return $data;
+            return view('shop.searchForm', $data);
+        } else if (count($data['LoggedInfo']) > 0) {
+            return view('shop.searchForm', $data);
+        }
     }
     //
     function myContent()
     {
-        return view('shop.myContent');
+        $myContents = storage::join('contents', 'contents.id', '=', 'storages.contentId')
+            ->select('contents.name', 'contents.author', 'storages.contentId', 'storages.quantity', 'storages.price', 'storages.rentQuantity')
+            ->where('shopId', Session()->get('LoggedShop'))
+            ->get();
+        return view('shop.myContent', compact('myContents'));
     }
     function addContent($id)
     {
@@ -55,6 +66,21 @@ class shopController extends Controller
         $storage->rentQuantity = $request->rentQuantity;
         $storage->save();
 
+        return redirect()->back()->withSuccess('Таны оруулсан контент амжилттай нэмэгдлээ');
+    }
+    public function createContent()
+    {
+        return view('shop.createContent');
+    }
+    public function doCreateContent(Request $request)
+    {
+        $content = new content;
+        $content->name = $request->name;
+        $content->author = $request->author;
+        $content->producer = $request->producer;
+        $content->type = $request->type;
+        $content->duration = $request->duration;
+        $content->save();
         return redirect()->back()->withSuccess('Таны оруулсан контент амжилттай нэмэгдлээ');
     }
 }
