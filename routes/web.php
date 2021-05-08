@@ -27,7 +27,7 @@ Route::group(['middleware' => ['AuthCheck']], function () {
     Route::get('/customer/home', [MainController::class, 'dashboardHome'])->name('customer.home');
     Route::get('/customer/search', [MainController::class, 'searchContent'])->name('content.search');
     Route::get('/customer/content/{id}', [MainController::class, 'getContent']);
-    // Route::get('/customer/content/{id}', [MainController::class, 'orderContent']);
+    Route::get('/customer/content/{id}/orderContent', [MainController::class, 'orderContent']);
     //Auth-----------------------------------------------------------------------------
     Route::get('/auth/login', [MainController::class, 'login'])->name('auth.login');
     Route::get('/auth/register', [MainController::class, 'register'])->name('auth.register');

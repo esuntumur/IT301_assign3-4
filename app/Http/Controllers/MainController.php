@@ -7,6 +7,7 @@ use App\Models\shop;
 use App\Models\customer;
 use App\Models\admin;
 use App\Models\content;
+use App\Models\storage;
 use Illuminate\Contracts\Session\Session;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -142,9 +143,13 @@ class MainController extends Controller
         $data = ['ContentData' => content::where('id', '=', $id)->first()];
         return view('customer.getContent', $data);
     }
-    public function orderContent()
+    public function orderContent($id)
     {
-        return 0;
+        $data = [
+            'ContentData' => content::where('id', '=', $id)->first(),
+            'ShopData' => storage::where('contentId', '=', $id)->get()->toArray()
+        ];
+        return view('customer.orderContent', $data);
     }
     function dashboardCustomer()
     {

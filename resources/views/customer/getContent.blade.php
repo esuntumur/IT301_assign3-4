@@ -21,7 +21,7 @@
                     <dd>{{$ContentData['type']}}</dd>
                 </dl>  
             <hr>
-            <a href="#" class="btn btn-lg btn-primary text-uppercase"> Захиалах </a>
+            <a href="/customer/content/{{$ContentData['id']}}/orderContent" class="btn btn-lg btn-primary text-uppercase"> Захиалах </a>
             </article>
         </aside>
     </div> 
