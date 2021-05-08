@@ -31,11 +31,11 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="{{route('shop.addContent')}}">Контент оруулах <span
+                    <a class="nav-link" href="{{route('shop.storeContent')}}">Контент хадгалах<span
                             class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{route('shop.myContent')}}">Миний контентууд</a>
+                    <a class="nav-link" href="{{route('shop.myStorage')}}">Миний агуулах</a>
                 </li>
             </ul>
         </div>

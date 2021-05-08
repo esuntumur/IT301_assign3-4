@@ -1,13 +1,9 @@
 @extends('layout.masterShop')
 @section('content')
 
-<h1>Create content</h1>
+<h1>Контент үүсгэх</h1>
 <form class="form-horizontal" method="POST" action="{{route('shop.createContent')}}">
     {{csrf_field()}}
-        <!-- Form Name -
-        <legend>ADD CONTENT</legend
-        <hr>
-
         <!-- Text input-->
         <div class="form-group">
             <label class="col-md-4 control-label" for="contenQuantity">name</label>
@@ -33,16 +29,16 @@
         </div>
         <!-- Text input-->
         <div class="form-group">
-            <label class="col-md-4 control-label" for="rentQuantity">type</label>
+            <label class="col-md-4 control-label">Movie type</label>
             <div class="col-md-4">
-                <input id="rentQuantity" name="type"  class="form-control input-md" required="" type="text">
+                <input  name="type"  class="form-control input-md" required="" type="text">
             </div>
         </div>
         <!-- Text input-->
         <div class="form-group">
-            <label class="col-md-4 control-label" for="rentQuantity">duration</label>
+            <label class="col-md-4 control-label" >duration</label>
             <div class="col-md-4">
-                <input id="rentQuantity" name="duration"  class="form-control input-md" required="" type="text">
+                <input name="duration"  class="form-control input-md" required="" type="text">
             </div>
         </div>
         <!-- Button -->
@@ -52,4 +48,7 @@
             </div>
         </div>
 </form>
+@if(session('success'))
+<h3 class="text-success">{{session("success")}}</h3>
+@endif
 @endsection
