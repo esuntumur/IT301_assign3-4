@@ -137,6 +137,15 @@ class MainController extends Controller
         $data = ['LoggedInfo' => admin::where('id', '=', session('LoggedCustomer'))->first()];
         return view('customer.home', $data);
     }
+    public function getContent($id)
+    {
+        $data = ['ContentData' => content::where('id', '=', $id)->first()];
+        return view('customer.getContent', $data);
+    }
+    public function orderContent()
+    {
+        return 0;
+    }
     function dashboardCustomer()
     {
         $data = ['LoggedInfo' => customer::where('id', '=', session('LoggedCustomer'))->first()];
