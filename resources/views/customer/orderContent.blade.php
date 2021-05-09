@@ -1,18 +1,18 @@
 @extends('layout.masterCustomer')
 @section('content')
-    {{-- {{$ShopData['id']}} --}}
     <form class="text-white">
        <div class="input-group mb-3">
-        <div class="input-group-prepend">
-            <label class="input-group-text" for="inputGroupSelect01">Дэлгүүр</label>
+            <div class="input-group-prepend">
+                <label class="input-group-text" for="inputGroupSelect01">Дэлгүүр</label>
+            </div>
+            <select class="custom-select" id="shopId" >
+                @for ($i = 0; $i < 2 ; $i++)
+                    <option value="{{ $shops[$i][0]['address'] }}">ID: {{$storage[$i]['shopId']}}   |   Address: {{ $shops[$i][0]['address'] }}
+                    </option>
+                @endfor
+            </select>
         </div>
-        <select class="custom-select" id="inputGroupSelect01">
-            @foreach ($ShopData as $item)
-                <option value="1">{{$item['id']}}</option>
-            @endforeach
-        </select>
-</div>
-  <div class="form-row">
+  <div class="form-row" >
     <div class="form-group col-md-6">
       <label class=""">Name</label>
       <input type="text" class="form-control" value="{{$ContentData['name']}}" readonly>
@@ -22,18 +22,10 @@
       <input type="text" class="form-control" value=" ">
     </div>
   </div>
-  <div class="form-group">
-    <label for="inputAddress">Address</label>
-    <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
-  </div>
-  <div class="form-group">
-    <label for="inputAddress2">Address 2</label>
-    <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">
-  </div>
   <div class="form-row">
     <div class="form-group col-md-6">
       <label for="inputCity">City</label>
-      <input type="text" class="form-control" id="inputCity">
+      <input type="text" class="form-control" id="inputCity" >
     </div>
     <div class="form-group col-md-4">
       <label for="inputState">State</label>

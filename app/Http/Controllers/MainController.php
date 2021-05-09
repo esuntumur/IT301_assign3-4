@@ -145,9 +145,16 @@ class MainController extends Controller
     }
     public function orderContent($id)
     {
+        $storage = storage::where('contentId', '=', $id)->get()->toArray(); // Storages by selected content
+        $shops = [];
+        for ($i = 0; $i < count($storage); $i++) {
+            $shop = shop::where('id', '=', $storage[$i]['shopId'])->get()->toArray();
+            array_push($shops, $shop);
+        }
         $data = [
             'ContentData' => content::where('id', '=', $id)->first(),
-            'ShopData' => storage::where('contentId', '=', $id)->get()->toArray()
+            'storage' => $storage,
+            'shops' => $shops,
         ];
         return view('customer.orderContent', $data);
     }
