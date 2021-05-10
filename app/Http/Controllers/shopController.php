@@ -32,7 +32,7 @@ class shopController extends Controller
         // return count($data['LoggedInfo']) == 0;
         if (count($data['LoggedInfo']) == 0) // $data['LoggedInfo'] = [datasd ds af]
         {
-            $data['fail'] = "Таны хайсан контент олдсонгүй. Шинээр нэмнэ үү.";
+            $data['fail'] = "Таны хайсан контент олдсонгүй. Шинэ контент үүсгэх.";
             // return $data;
             return view('shop.searchForm', $data);
         } else if (count($data['LoggedInfo']) > 0) {
@@ -40,33 +40,34 @@ class shopController extends Controller
         }
     }
     //
-    function myContent()
+    function myStorage()
     {
-        $myContents = storage::join('contents', 'contents.id', '=', 'storages.contentId')
-            ->select('contents.name', 'contents.author', 'storages.contentId', 'storages.quantity', 'storages.price', 'storages.rentQuantity')
+        $myStorage = storage::join('contents', 'contents.id', '=', 'storages.contentId')
+            ->select('contents.name', 'contents.author', 'storages.contentId', 'storages.quantity', 'storages.price', 'storages.rentQuantity', 'storages.type')
             ->where('shopId', Session()->get('LoggedShop'))
             ->get();
-        return view('shop.myContent', compact('myContents'));
+        return view('shop.myStorage', compact('myStorage'));
     }
-    function addContent($id)
+    function storeContent($id)
     {
         $content = [
             'content' => content::where('id', '=', $id)->first(),
             'shopId' => content::where('id', '=', Session()->get('LoggedShop'))->first()
         ];
-        return view('shop.addContent', $content);
+        return view('shop.storeContent', $content);
     }
-    public function doAddContent(Request $request)
+    public function doStoreContent(Request $request)
     {
         $storage = new storage;
         $storage->contentId = $request->contentId;
         $storage->quantity = $request->quantity;
         $storage->price = $request->price;
         $storage->shopId = $request->shopId;
-        $storage->rentQuantity = $request->rentQuantity;
+        $storage->rentQuantity = 0;
+        $storage->type = $request->type;
         $storage->save();
 
-        return redirect()->back()->withSuccess('Таны оруулсан контент амжилттай нэмэгдлээ');
+        return redirect()->back()->withSuccess('Та энэхүү шинэ контентыг агуулахдаа амжилттай хадгаллаа.');
     }
     public function createContent()
     {

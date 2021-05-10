@@ -20,15 +20,20 @@
 
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="{{route('customer.dashboard')}}">Dashboard</a>
+        <a class="navbar-brand" href="{{route('customer.home')}}">ContentBox</a>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
-                {{-- <li class="nav-item">
-                    <a class="nav-link" href="{{route('shop.addContent')}}">Контент оруулах</a>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{route('customer.home')}}">Home</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav">
+                 <li class="nav-item">
+                    <a class="nav-link" href="{{route('customer.dashboard')}}">{{Session()->get('LoggedCustomerName')}}</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{route('shop.myContent')}}">Миний контентууд</a>
-                </li> --}}
+                    <a class="nav-link" href="{{route('auth.logout')}}">Гарах</a>
+                </li>
             </ul>
             <form class="form-inline my-2 my-lg-0" action="{{route('content.search')}}" method="GET">
                 <input class="form-control mr-sm-2 ml-3" type="search" placeholder="Search" aria-label="Search" name="search">

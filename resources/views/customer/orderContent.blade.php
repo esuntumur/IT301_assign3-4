@@ -2,7 +2,6 @@
 @section('content')
 <form class="text-white mt-3" method="POST" action="{{route('customer.store', $ContentData['id'])}}">
   {{csrf_field()}}
-  {{-- sdaf --}}
   <div class="input-group mb-3">
     <div class="input-group-prepend">
       <label class="input-group-text" for="inputGroupSelect01">Дэлгүүр</label>

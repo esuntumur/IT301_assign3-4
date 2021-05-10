@@ -3,8 +3,8 @@
 <!------ Include the above in your HEAD tag ---------->
 <form class="form-horizontal" method="POST" action="">
     {{csrf_field()}}
-        <!-- Form Name -
-        <legend>ADD CONTENT</legend
+        {{-- Form Name --}}
+        <legend>Контент хадгалах</legend>
         <hr>
 
         <!-- Text input-->
@@ -40,9 +40,13 @@
         </div>
         <!-- Text input-->
         <div class="form-group">
-            <label class="col-md-4 control-label" for="rentQuantity">RENT QUANTITY</label>
+            <label class="col-md-4 control-label" >STORE TYPE</label>
             <div class="col-md-4">
-                <input id="rentQuantity" name="rentQuantity"  class="form-control input-md" required="" type="text">
+                <select name="type" id="">
+                    <option value="dvd">DVD</option>
+                    <option value="bd">BD (Blu-ray)</option>
+                    <option value="cd">CD</option>
+                </select>
             </div>
         </div>
         <!-- Button -->
