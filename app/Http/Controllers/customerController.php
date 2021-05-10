@@ -7,6 +7,7 @@ use App\Models\content;
 use App\Models\customer;
 use App\Models\shop;
 use App\Models\storage;
+use App\Models\order;
 use Illuminate\Http\Request;
 
 class customerController extends Controller
@@ -19,17 +20,36 @@ class customerController extends Controller
 
     function myOrder()
     {
-        $data = ['LoggedInfo' => admin::where('id', '=', session('LoggedCustomer'))->first()];
+        //     ($myOrder[$i]['updated_at']-$myOrder[$i]['created_at'] < 1day) 
+        //   $myOrder[$i]['renting']=0; $myOrder=delete;
+        //     $myOrder[$i]['fine']=
+
+        $myOrder = order::where('customerId', '=',  session('LoggedCustomer'))->get();
+        $myContents = [];
+        $shops = [];
+        for ($i = 0; $i < count($myOrder); $i++) {
+            $content = content::where('id', '=', $myOrder[$i]['contentId'])->get()->toArray();
+            array_push($myContents, $content);
+        }
+        for ($i = 0; $i < count($myOrder); $i++) {
+            $shop = shop::where('id', '=', $myOrder[$i]['shopId'])->get()->toArray();
+            array_push($shops, $shop);
+        }
+        $data = [
+            'myOrder' => $myOrder,
+            'myContents' => $myContents,
+            'shops' => $shops
+        ];
         return view('customer.myOrder', $data);
     }
 
-    public function getContent($id)
+    function getContent($id)
     {
         $data = ['ContentData' => content::where('id', '=', $id)->first()];
         return view('customer.getContent', $data);
     }
 
-    public function orderContent($id)
+    function orderContent($id)
     {
         $storage = storage::where('contentId', '=', $id)->get()->toArray(); // Storages by selected content
         $shops = [];

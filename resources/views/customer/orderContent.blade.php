@@ -26,7 +26,7 @@
           <input type="number" name="quantity" class="form-control " value="1">
           <button type="submit" class="btn btn-primary mt-2">Захиалах</button>
           <input type="hidden" name="shopId" value="{{$shopid}}">
-          <input type="hidden" class="form-control" name="customerId" value="{{session()->has('LoggedCustomer')}}" readonly>
+          <input type="hidden" class="form-control" name="customerId" value="{{session('LoggedCustomer')}}" readonly>
           <input type="hidden" class="form-control" name="contentId" value="{{$ContentData['id']}}" readonly>
       </form>
        @if(session('success'))
