@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\customerController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\OrderController;
@@ -24,11 +25,12 @@ Route::group(['middleware' => ['AuthCheck']], function () {
     //
     Route::get('/shop/search', [shopController::class, 'searchContent'])->name('shop.search');
     //Customer------------------------------------------------
-    Route::get('/customer/dashboard', [MainController::class, 'dashboardCustomer'])->name('customer.dashboard');
-    Route::get('/customer/home', [MainController::class, 'dashboardHome'])->name('customer.home');
-    Route::get('/customer/search', [MainController::class, 'searchContent'])->name('content.search');
-    Route::get('/customer/content/{id}', [MainController::class, 'getContent']);
-    Route::get('/customer/content/{id}/orderContent', [MainController::class, 'orderContent']);
+    Route::get('/customer/dashboard', [customerController::class, 'dashboardCustomer'])->name('customer.dashboard');
+    Route::get('/customer/myorder', [customerController::class, 'myOrder'])->name('customer.myOrder');
+    Route::get('/customer/home', [customerController::class, 'dashboardHome'])->name('customer.home');
+    Route::get('/customer/search', [customerController::class, 'searchContent'])->name('content.search');
+    Route::get('/customer/content/{id}', [customerController::class, 'getContent']);
+    Route::get('/customer/content/{id}/orderContent', [customerController::class, 'orderContent']);
     Route::post('/customer/content/{id}/orderContent', [OrderController::class, 'store'])->name('customer.store');
     //Auth-----------------------------------------------------------------------------
     Route::get('/auth/login', [MainController::class, 'login'])->name('auth.login');

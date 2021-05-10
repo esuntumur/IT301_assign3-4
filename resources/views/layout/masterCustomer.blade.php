@@ -26,7 +26,11 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{route('customer.home')}}">Home</a>
                 </li>
+                 <li class="nav-item">
+                    <a class="nav-link" href="{{route('customer.myOrder')}}">Миний захиалга</a>
+                </li>
             </ul>
+
             <ul class="navbar-nav">
                  <li class="nav-item">
                     <a class="nav-link" href="{{route('customer.dashboard')}}">{{Session()->get('LoggedCustomerName')}}</a>
