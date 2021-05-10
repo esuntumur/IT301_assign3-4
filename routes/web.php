@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MainController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\shopController;
 //  sda
 Route::post('auth/save', [MainController::class, 'save'])->name('auth.save');
@@ -28,6 +29,7 @@ Route::group(['middleware' => ['AuthCheck']], function () {
     Route::get('/customer/search', [MainController::class, 'searchContent'])->name('content.search');
     Route::get('/customer/content/{id}', [MainController::class, 'getContent']);
     Route::get('/customer/content/{id}/orderContent', [MainController::class, 'orderContent']);
+    Route::post('/customer/content/{id}/orderContent', [OrderController::class, 'store'])->name('customer.store');
     //Auth-----------------------------------------------------------------------------
     Route::get('/auth/login', [MainController::class, 'login'])->name('auth.login');
     Route::get('/auth/register', [MainController::class, 'register'])->name('auth.register');

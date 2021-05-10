@@ -14,7 +14,6 @@ class OrderController extends Controller
      */
     public function index()
     {
-        //
     }
 
     /**
@@ -35,7 +34,15 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $content = new order();
+        $content->customerId = $request->customerId;
+        $content->shopId = $request->shopId;
+        $content->contentId = $request->contentId;
+        $content->quantity = $request->quantity;
+        $content->renting = 0;
+        $content->save();
+        return redirect()->back()->withSuccess('Таны захиалга амжилттай нэмэгдлээ');
+        // return $request->shopId;
     }
 
     /**
