@@ -37,6 +37,12 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{route('shop.myStorage')}}">Миний агуулах</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{route('shop.giveContent')}}">Контентыг өгөх</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{route('shop.recieveContent')}}">Контентыг авах</a>
+                </li>
             </ul>
         </div>
     </nav>

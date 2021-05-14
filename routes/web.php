@@ -22,8 +22,14 @@ Route::group(['middleware' => ['AuthCheck']], function () {
     Route::get('/shop/createContent', [shopController::class, 'createContent'])->name('shop.createContent');
     Route::post('/shop/createContent', [shopController::class, 'doCreateContent']);
     Route::get('/shop/myStorage', [shopController::class, 'myStorage'])->name('shop.myStorage');
-    //
     Route::get('/shop/search', [shopController::class, 'searchContent'])->name('shop.search');
+    //todo giveContent
+    Route::get('/shop.givecontent', [shopController::class, 'giveContent'])->name('shop.giveContent');
+    Route::post('/shop.givecontent', [shopController::class, 'doGiveContent'])->name('shop.giveContent');
+    //todo recieveContent
+    Route::get('/shop.recievecontent', [shopController::class, 'recieveContent'])->name('shop.recieveContent');
+    Route::post('/shop.recievecontent', [shopController::class, 'doRecieveContent'])->name('shop.recieveContent');
+
     //Customer------------------------------------------------
     Route::get('/customer/dashboard', [customerController::class, 'dashboardCustomer'])->name('customer.dashboard');
     Route::get('/customer/myorder', [customerController::class, 'myOrder'])->name('customer.myOrder');

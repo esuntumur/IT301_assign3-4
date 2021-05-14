@@ -8,11 +8,11 @@
       <th scope="col">Дэлгүүрийн эзэн</th>
       <th scope="col">Дэлгүүрийн хаяг</th>
       <th scope="col">Үнэ</th>
-      <th scope="col">Захиалгийн тоо</th>
-      <th scope="col">Захиалсан огноо</th>
+        <th scope="col">Захиалгийн тоо</th>
+        <th scope="col">Захиалсан огноо</th>
     </tr>
     @for ($i = 0; $i < count($myContents); $i++) <tr>
-      @if ($myOrder[$i]['renting']==0)
+      @if ($myOrder[$i]['renting']==0 && $myOrder[$i]['returnedDate']==null)
       <th>{{$myContents[$i][0]['name']}}</th>
       <th>{{$shops[$i][0]['name']}}</th>
       <th>{{$shops[$i][0]['address']}}</th>

@@ -9,6 +9,7 @@ use App\Models\shop;
 use App\Models\storage;
 use App\Models\order;
 use Illuminate\Http\Request;
+use DateTime;
 
 class customerController extends Controller
 {
@@ -17,14 +18,34 @@ class customerController extends Controller
         $data = ['LoggedInfo' => admin::where('id', '=', session('LoggedCustomer'))->first()];
         return view('customer.home', $data);
     }
+    function dateSchedule()
+    {
+        return now()->toArray();
+        // todo
+        $orders = order::where("renting", 0)->get();
+        foreach ($orders as $order) {
+            $datetime1 = new DateTime($order['created_at']);
+            $datetime2 = new \DateTime('NOW');
 
+            $interval = $datetime1->diff($datetime2);
+            $days = $interval->format('%a'); //now do whatever you like with $days
+            if ($days >= 1) {
+                order::where("id", $order['id'])->delete();
+            }
+        }
+    }
     function myOrder()
     {
-        //     ($myOrder[$i]['updated_at']-$myOrder[$i]['created_at'] < 1day) 
+        // todo) => захиалгын хүсэлт хийснээс хойш 1 хоногт --> хэрэглэгч контентоо дэлгүүрээс авах || устгах
+        // return $this->dateSchedule();
+        $customerID = session('LoggedCustomer');
+        $myOrder = order::where('customerId', '=', $customerID)->get();
+
+        // todo 1 honogoos hetersen bol ustgah
+
+        // ($myOrder[$i]['updated_at']-$myOrder[$i]['created_at'] < 1day)
         //   $myOrder[$i]['renting']=0; $myOrder=delete;
         //     $myOrder[$i]['fine']=
-
-        $myOrder = order::where('customerId', '=',  session('LoggedCustomer'))->get();
         $myContents = [];
         $shops = [];
         for ($i = 0; $i < count($myOrder); $i++) {

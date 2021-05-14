@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\order;
+use App\Models\storage;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
@@ -34,11 +35,19 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
+
+        $quantity = storage::where('shopId', $request->shopId)->where('contentId', $request->contentId)->first();
+        if ($quantity['quantity'] > $request->quantity) {
+            $quantityDiff = $quantity['quantity'] - $request->quantity;
+            storage::where('shopId', $request->shopId)->where('contentId', $request->contentId)->update(['quantity' => $quantityDiff]);
+        } else return redirect()->back()->withSuccess('Захиалах боломжит тоо: ' . $quantity['quantity']);
+        $rowPrice = storage::where("contentId", $request->contentId)->first();
         $order = new order();
         $order->customerId = $request->customerId;
         $order->shopId = $request->shopId;
         $order->contentId = $request->contentId;
         $order->quantity = $request->quantity;
+        $order->orderPrice = $order->quantity * $rowPrice->price;
         $order->renting = 0;
         $order->save();
         return redirect()->back()->withSuccess('Таны захиалга амжилттай нэмэгдлээ');
