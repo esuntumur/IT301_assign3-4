@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -43,6 +44,17 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{route('shop.recieveContent')}}">Контентыг авах</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{route('shop.myOrder')}}">Захиалга харах</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{route('shop.dashboard')}}">{{Session()->get('LoggedShopName')}}</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{route('auth.logout')}}">Гарах</a>
+                </li>
             </ul>
         </div>
     </nav>
@@ -50,4 +62,5 @@
         @yield('content')
     </div>
 </body>
+
 </html>

@@ -43,7 +43,7 @@ class customerController extends Controller
 
         // todo 1 honogoos hetersen bol ustgah
 
-        // ($myOrder[$i]['updated_at']-$myOrder[$i]['created_at'] < 1day)
+        // ($myOrder[$i]['givedDate']-$myOrder[$i]['created_at'] < 1day)
         //   $myOrder[$i]['renting']=0; $myOrder=delete;
         //     $myOrder[$i]['fine']=
         $myContents = [];
@@ -101,5 +101,15 @@ class customerController extends Controller
             ->get()];
         //$data = content::where('name','LIKE','%'.$request->search.'%')->get();
         return view('customer.search', $data);
+    }
+    function extendRequest($orderId)
+    {
+        $order = order::where('id', $orderId)->first();
+        if ($order->extend == null) {
+            $order->extend = 0;
+            $order->save();
+            return redirect()->back()->withSuccess("Амжилттай хүсэлт илгээлээ.");
+        } else if ($order->extend == 1)
+            return redirect()->back()->withSuccess("Өмнө хүсэлт илгээсэн байна.");
     }
 }

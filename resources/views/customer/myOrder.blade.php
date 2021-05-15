@@ -8,8 +8,8 @@
       <th scope="col">Дэлгүүрийн эзэн</th>
       <th scope="col">Дэлгүүрийн хаяг</th>
       <th scope="col">Үнэ</th>
-        <th scope="col">Захиалгийн тоо</th>
-        <th scope="col">Захиалсан огноо</th>
+      <th scope="col">Захиалгийн тоо</th>
+      <th scope="col">Захиалсан огноо</th>
     </tr>
     @for ($i = 0; $i < count($myContents); $i++) <tr>
       @if ($myOrder[$i]['renting']==0 && $myOrder[$i]['returnedDate']==null)
@@ -47,12 +47,16 @@
       <th>{{$myOrder[$i]['orderPrice']}}</th>
       <th>{{$myOrder[$i]['quantity']}}</th>
       <th>{{$myOrder[$i]['created_at']}}</th>
-      <th>{{$myOrder[$i]['updated_at']}}</th>
+      <th>{{$myOrder[$i]['givedDate']}}</th>
       <th>{{$myOrder[$i]['returnedDate']}}</th>
       <th>{{$myOrder[$i]['fine']}}</th>
-      </tr>
-      @endif
-      @endfor
-      </tbody>
+      <th><a href="{{'myorder/'.$myOrder[$i]['id']}}" . class="btn btn-primary stretched-link">Сунгах хүсэлт</a>
+        </tr>
+        @endif
+        @endfor
+        </tbody>
 </table>
+@if(session('success'))
+<h3 class="text-success">{{session("success")}}</h3>
+@endif
 @endsection

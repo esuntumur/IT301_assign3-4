@@ -27,6 +27,8 @@ Route::group(['middleware' => ['AuthCheck']], function () {
     Route::post('/shop/givecontent', [shopController::class, 'doGiveContent'])->name('shop.giveContent');
     Route::get('/shop/recievecontent', [shopController::class, 'recieveContent'])->name('shop.recieveContent');
     Route::post('/shop/recievecontent', [shopController::class, 'doRecieveContent'])->name('shop.recieveContent');
+    Route::get('/shop/myorder', [shopController::class, 'myOrder'])->name('shop.myOrder');
+    Route::get('/shop/myorder/{orderId}', [shopController::class, 'extendOrder'])->name('shop.extendOrder');
     // todo) => send email
     Route::get('/shop/email',  'App\Http\Controllers\EmailController@create');
     Route::post('/shop/email', 'App\Http\Controllers\EmailController@sendEmail')->name('shop/email');
@@ -38,6 +40,7 @@ Route::group(['middleware' => ['AuthCheck']], function () {
     Route::get('/customer/content/{id}', [customerController::class, 'getContent']);
     Route::get('/customer/content/{id}/orderContent', [customerController::class, 'orderContent']);
     Route::post('/customer/content/{id}/orderContent', [OrderController::class, 'store'])->name('customer.store');
+    Route::get('/customer/myorder/{orderId}', [customerController::class, 'extendRequest']);
     // * --------<<<<Authentication>>>>---------
     Route::get('/auth/login', [MainController::class, 'login'])->name('auth.login');
     Route::get('/auth/register', [MainController::class, 'register'])->name('auth.register');
