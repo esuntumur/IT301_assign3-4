@@ -48,7 +48,7 @@ class dateSchedule extends Command
 
             $interval = $datetime1->diff($datetime2);
             $days = $interval->format('%a');
-            if ($days >= 1 && $order['renting'] == 0) {
+            if ($days >= 1 && $order['renting'] == 0 && $order['returnedDate'] == null) {
                 DB::beginTransaction();
                 try {
                     order::where("id", $order['id'])->delete();
