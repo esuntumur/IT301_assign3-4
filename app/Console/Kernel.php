@@ -27,9 +27,6 @@ class Kernel extends ConsoleKernel
     {
         $schedule->command('minute:delete')->everyMinute();
         $schedule->command('mailSchedule')->everyMinute();
-        $schedule->call(function () {
-            return view('layout.master');
-        })->everyMinute();
     }
 
     /**

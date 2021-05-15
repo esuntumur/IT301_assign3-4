@@ -78,7 +78,7 @@ class mailSchedule extends Command
 
                 ];
 
-                Mail::send('email-template', $data, function ($message) use ($data) {
+                Mail::send('auth.email-template', $data, function ($message) use ($data) {
                     $message->to($data['email'])
                         ->subject($data['subject']);
                 });
