@@ -61,5 +61,4 @@ Route::group(['middleware' => ['AuthCheck']], function () {
     // * -------------------------------<<<<Authentication>>>>---------------------------------
     Route::get('/auth/login', [MainController::class, 'login'])->name('auth.login');
     Route::get('/auth/register', [MainController::class, 'register'])->name('auth.register');
-    Route::get('/admin/home', [MainController::class, 'homeAdmin']);
 });

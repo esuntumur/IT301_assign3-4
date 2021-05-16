@@ -111,7 +111,7 @@ class MainController extends Controller
                 if (Hash::check($request->password, $shopInfo->password)) {
                     $request->session()->put('LoggedShop', $shopInfo->id);
                     $request->session()->put('LoggedShopName', $shopInfo->name);
-                    return redirect('shop/home');
+                    return redirect('shop/myStorage');
                 } else {
                     return back()->with('fail', 'Таны нууц үг буруу байна.');
                 }
@@ -123,7 +123,8 @@ class MainController extends Controller
             } else {
                 if ($request->password == $adminInfo->password) {
                     $request->session()->put('LoggedAdmin', $adminInfo->id);
-                    return redirect('admin/home');
+                    $request->session()->put('LoggedAdminName', $adminInfo->name);
+                    return redirect('admin/profile');
                 } else {
                     return back()->with('fail', 'Таны нууц үг буруу байна.');
                 }
