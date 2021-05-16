@@ -41,6 +41,20 @@
                 <input name="duration"  class="form-control input-md" required="" type="text">
             </div>
         </div>
+        <!-- Text input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" >Trailer link</label>
+            <div class="col-md-4">
+                <input name="trailerLink"  class="form-control input-md" required="" type="text">
+            </div>
+        </div>
+        <!-- Text input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" >Content banner</label>
+            <div class="col-md-4">
+                <input name="contentBanner"  class="form-control input-md" required="" type="text">
+            </div>
+        </div>
         <!-- Button -->
         <div class="form-group">
             <div class="col-md-4">

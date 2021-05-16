@@ -33,7 +33,7 @@
 
             <ul class="navbar-nav">
                  <li class="nav-item">
-                    <a class="nav-link" href="{{route('customer.dashboard')}}">{{Session()->get('LoggedCustomerName')}}</a>
+                    <a class="nav-link" href="{{route('customer.home')}}">{{Session()->get('LoggedCustomerName')}}</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{route('auth.logout')}}">Гарах</a>
@@ -45,7 +45,7 @@
             </form>
         </div>
     </nav>
-    <div class="container">
+    <div class="container  text-white">
          @yield('content')
     </div>
 

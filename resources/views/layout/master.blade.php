@@ -21,6 +21,6 @@
             <a class="navbar-brand" href="{{route('auth.login')}}">MovieBox</a>
             </div>
         </nav>
-        <div class="container">@yield('content')</div>
+        <div class="container  text-white">@yield('content')</div>
     </body>
 </html>

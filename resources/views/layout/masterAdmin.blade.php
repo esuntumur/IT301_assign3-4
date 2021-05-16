@@ -24,22 +24,18 @@
 
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="/">Dashboard</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+        <a class="navbar-brand" href="{{url('admin/home')}}">Dashboard</a>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="masterShop/addcontent">Контент оруулах <span
-                            class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="{{route('admin.shops')}}">Shop accounts<span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">
-                        Манай контентууд
-                    </a>
+                    <a class="nav-link" href="{{route('admin.customers')}}">Customer accounts</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{route('auth.logout')}}">Гарах</a>
                 </li>
             </ul>
             <form class="form-inline my-2 my-lg-0">
@@ -49,8 +45,7 @@
 
         </div>
     </nav>
-    <div class="container">
-
+    <div class="container text-white">
         @yield('content')
     </div>
 

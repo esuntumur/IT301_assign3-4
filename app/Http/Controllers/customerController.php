@@ -8,14 +8,26 @@ use App\Models\customer;
 use App\Models\shop;
 use App\Models\storage;
 use App\Models\order;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use DateTime;
+use Illuminate\Support\Facades\Date;
 
 class customerController extends Controller
 {
-    function dashboardHome()
+
+    function customerHome()
     {
-        $data = ['LoggedInfo' => admin::where('id', '=', session('LoggedCustomer'))->first()];
+        // todo 1) хамгийн их захиалсан кино (WEEK)
+        $weekOrder = order::whereBetween('created_at', [now()->startOfWeek(), now()->endOfWeek()])->orderBy('quantity', 'desc')->first()->contentId;
+        $weekContent = content::where('id', $weekOrder)->first();
+
+        // todo 2) хамгийн их захиалсан кино (MONTH)
+        $monthOrder = order::whereBetween('created_at', [now()->startOfMonth(), now()->endOfMonth()])->orderBy('quantity', 'desc')->first()->contentId;
+        $monthContent = content::where('id', $monthOrder)->first();
+
+        $data = ['LoggedInfo' => customer::where('id', '=', session('LoggedCustomer'))->first(), "weekContent" => $weekContent, "monthContent" => $monthContent];
+
         return view('customer.home', $data);
     }
     function dateSchedule()
@@ -42,10 +54,6 @@ class customerController extends Controller
         $myOrder = order::where('customerId', '=', $customerID)->get();
 
         // todo 1 honogoos hetersen bol ustgah
-
-        // ($myOrder[$i]['givedDate']-$myOrder[$i]['created_at'] < 1day)
-        //   $myOrder[$i]['renting']=0; $myOrder=delete;
-        //     $myOrder[$i]['fine']=
         $myContents = [];
         $shops = [];
         for ($i = 0; $i < count($myOrder); $i++) {
@@ -86,11 +94,6 @@ class customerController extends Controller
         return view('customer.orderContent', $data);
     }
 
-    function dashboardCustomer()
-    {
-        $data = ['LoggedInfo' => customer::where('id', '=', session('LoggedCustomer'))->first()];
-        return view('customer.dashboard', $data);
-    }
 
     function searchContent(Request $request)
     {

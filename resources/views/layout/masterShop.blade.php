@@ -23,7 +23,7 @@
 
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="{{route('shop.dashboard')}}">Dashboard</a>
+        <a class="navbar-brand" href="{{route('shop.home')}}">home</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -50,7 +50,7 @@
             </ul>
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" href="{{route('shop.dashboard')}}">{{Session()->get('LoggedShopName')}}</a>
+                    <a class="nav-link" href="{{route('shop.home')}}">{{Session()->get('LoggedShopName')}}</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{route('auth.logout')}}">Гарах</a>
@@ -58,7 +58,7 @@
             </ul>
         </div>
     </nav>
-    <div class="container">
+    <div class="container  text-white">
         @yield('content')
     </div>
 </body>

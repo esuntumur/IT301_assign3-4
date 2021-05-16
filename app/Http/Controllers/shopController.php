@@ -13,10 +13,10 @@ use DateTime;
 
 class shopController extends Controller
 {
-    function dashboardShop()
+    function shopHome()
     {
         $data = ['LoggedInfo' => shop::where('id', '=', session('LoggedShop'))->first()];
-        return view('shop.dashboard', $data);
+        return view('shop.home', $data);
     }
     //
     function searchForm(Request $request)
@@ -44,7 +44,7 @@ class shopController extends Controller
     function myStorage()
     {
         $myStorage = storage::join('contents', 'contents.id', '=', 'storages.contentId')
-            ->select('contents.name', 'contents.author', 'storages.contentId', 'storages.quantity', 'storages.price', 'storages.rentQuantity', 'storages.type')
+            ->select('contents.name', 'contents.author', 'storages.contentId', 'storages.quantity', 'storages.price', 'storages.rentQuantity', 'storages.type', 'contents.trailerLink', 'contents.contentBanner')
             ->where('shopId', Session()->get('LoggedShop'))
             ->get();
         return view('shop.myStorage', compact('myStorage'));
@@ -82,6 +82,8 @@ class shopController extends Controller
         $content->producer = $request->producer;
         $content->type = $request->type;
         $content->duration = $request->duration;
+        $content->trailerLink = $request->trailerLink;
+        $content->contentBanner = $request->contentBanner;
         $content->save();
         return redirect()->back()->withSuccess('Таны оруулсан контент амжилттай нэмэгдлээ');
     }
