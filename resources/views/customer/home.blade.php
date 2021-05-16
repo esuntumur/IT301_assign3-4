@@ -31,9 +31,9 @@
     </div>
     <h1 class="text-white pt-3">Trailer</h1>
     <hr>
-    <div class="embed-responsive embed-responsive-16by9">
-
-        <iframe class="embed-responsive-item" src="{{$weekContent['trailerLink']}}" allowfullscreen></iframe>
+    <div class="embed-responsive embed-responsive-16by9 ">
+        <iframe class="embed-responsive-item" style="margin: 0 auto; display: block;"
+            src="{{$weekContent['trailerLink']}}" allowfullscreen></iframe>
     </div>
     @endif
     @if (isset($monthContent))
