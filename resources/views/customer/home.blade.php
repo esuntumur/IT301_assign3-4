@@ -2,25 +2,69 @@
 @section('content')
 <div class="mx-auto">
     @if (isset($weekContent))
-    <div class="mx-auto">
-        <h1 class="">Энэ долоо хоногийн шилдэг кино</h1>
-        <br><h3>{{$weekContent->name}}</h3>
-        Зохиогч: {{$weekContent->author}}
-        <br>Продиусер: {{$weekContent->producer}}
-        <br>Төрөл: {{$weekContent->type}}
-        <br>Үргэлжлэх хугацаа: {{$weekContent->duration}}
-        <br><br><iframe class="embed-responsive-item" width="853"  height="480" src="{{$weekContent->trailerLink}}" allowfullscreen autoplay></iframe>
+        <h1 style="text-align: center;">Энэ долоо хоногийн шилдэг кино</h1><br>
+        <div class="card bg-secondary">
+        <div class="row">
+            <div> <a href="#"><img class="rounded ml-3"width="320px" src="{{$weekContent['contentBanner']}}"></a></div>
+            <aside class="col-sm-6">
+                <article class="card-body p-5">
+                    <h3 class="title mb-3">{{$weekContent['name']}}</h3>
+                    <dl class="param param-feature">
+                        <dt>Author</dt>
+                        <dd>{{$weekContent['author']}}</dd>
+                    </dl>
+                    <dl class="param param-feature">
+                        <dt>Producer</dt>
+                        <dd>{{$weekContent['producer']}}</dd>
+                    </dl>
+                    <dl class="param param-feature">
+                        <dt>Type</dt>
+                        <dd>{{$weekContent['type']}}</dd>
+                    </dl>
+                <hr>
+                <a href="/customer/content/{{$weekContent['id']}}/orderContent" class="btn btn-lg btn-primary text-uppercase"> Захиалах </a>
+                </article>
+            </aside>
+        </div>
+    </div>
+        <h1 class="text-white pt-3">Trailer</h1>
+    <hr>
+    <div class="embed-responsive embed-responsive-16by9">
+
+    <iframe class="embed-responsive-item" src="{{$weekContent['trailerLink']}}" allowfullscreen></iframe>
     </div>
     @endif
     @if (isset($monthContent))
-    <div class="mx-auto">
-        <h1 class="">Энэ сарын шилдэг кино</h1>
-        <br><h3>{{$monthContent->name}}</h3>
-        Зохиогч: {{$monthContent->author}}
-        <br>Продиусер: {{$monthContent->producer}}
-        <br>Төрөл: {{$monthContent->type}}
-        <br>Үргэлжлэх хугацаа: {{$monthContent->duration}}
-        <br><br><iframe class="embed-responsive-item" width="853"  height="480" src="{{$monthContent->trailerLink}}" allowfullscreen autoplay></iframe>
+        <br><h1 style="text-align: center;">Энэ сарын шилдэг кино</h1><br>
+        <div class="card bg-secondary">
+        <div class="row">
+            <div> <a href="#"><img class="rounded ml-3"width="320px" src="{{$weekContent['contentBanner']}}"></a></div>
+            <aside class="col-sm-6">
+                <article class="card-body p-5">
+                    <h3 class="title mb-3">{{$weekContent['name']}}</h3>
+                    <dl class="param param-feature">
+                        <dt>Author</dt>
+                        <dd>{{$weekContent['author']}}</dd>
+                    </dl>
+                    <dl class="param param-feature">
+                        <dt>Producer</dt>
+                        <dd>{{$weekContent['producer']}}</dd>
+                    </dl>
+                    <dl class="param param-feature">
+                        <dt>Type</dt>
+                        <dd>{{$weekContent['type']}}</dd>
+                    </dl>
+                <hr>
+                <a href="/customer/content/{{$weekContent['id']}}/orderContent" class="btn btn-lg btn-primary text-uppercase"> Захиалах </a>
+                </article>
+            </aside>
+        </div>
+    </div>
+        <h1 class="text-white pt-3">Trailer</h1>
+    <hr>
+    <div class="embed-responsive embed-responsive-16by9">
+
+    <iframe class="embed-responsive-item" src="{{$weekContent['trailerLink']}}" allowfullscreen></iframe>
     </div>
     @endif
 </div>

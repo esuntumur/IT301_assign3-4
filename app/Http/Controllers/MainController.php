@@ -80,6 +80,7 @@ class MainController extends Controller
             }
         }
     }
+
     function check(Request $request)
     {
         // return $request->input();
@@ -128,11 +129,6 @@ class MainController extends Controller
                 }
             }
         }
-    }
-    function homeAdmin()
-    {
-        $data = ['LoggedInfo' => admin::where('id', '=', session('LoggedAdmin'))->first()];
-        return view('admin.home', $data);
     }
 
     function logOut()

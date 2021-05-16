@@ -14,6 +14,11 @@ class adminController extends Controller
         $data = ['LoggedInfo' => admin::where('id', '=', session('LoggedAdmin'))->first()];
         return view('admin.home', $data);
     }
+    function profile()
+    {
+        $data = ['LoggedInfo' => admin::where('id', '=', session('LoggedAdmin'))->first()];
+        return view('admin.profile', $data);
+    }
     function shopAccounts()
     {
         $shops = shop::get();

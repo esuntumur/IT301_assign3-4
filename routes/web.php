@@ -19,6 +19,9 @@ Route::group(['middleware' => ['AuthCheck']], function () {
 
     // * -----------------------------------<<<<Shop>>>>------------------------------------
     Route::get('/shop/home', [shopController::class, 'shopHome'])->name('shop.home');
+    Route::get('/shop/profile', [shopController::class, 'profile'])->name(
+        'shop.profile'
+    );
     Route::get('/shop/storeContent', [shopController::class, 'searchForm'])->name('shop.storeContent');
     Route::get('/shop/storeContent/{id}', [shopController::class, 'storeContent']);
     Route::post('/shop/storeContent/{id}', [shopController::class, 'doStoreContent']);
@@ -38,6 +41,9 @@ Route::group(['middleware' => ['AuthCheck']], function () {
 
     // * -----------------------------------<<<<Customer>>>>------------------------------------
     Route::get('/customer/home', [customerController::class, 'customerHome'])->name('customer.home');
+    Route::get('/customer/profile', [customerController::class, 'profile'])->name(
+        'customer.profile'
+    );
     Route::get('/customer/myorder', [customerController::class, 'myOrder'])->name('customer.myOrder');
     Route::get('/customer/search', [customerController::class, 'searchContent'])->name('content.search');
     Route::get('/customer/content/{id}', [customerController::class, 'getContent']);
@@ -47,6 +53,9 @@ Route::group(['middleware' => ['AuthCheck']], function () {
 
     // * -----------------------------------<<<<Admin>>>>------------------------------------
     Route::get('/admin/home', [adminController::class, 'adminHome'])->name('admin.home');
+    Route::get('/admin/profile', [adminController::class, 'profile'])->name(
+        'admin.profile'
+    );
     Route::get('/admin/shops', [adminController::class, 'shopAccounts'])->name('admin.shops');
     Route::get('/admin/customers', [adminController::class, 'customerAccounts'])->name('admin.customers');
     // * -------------------------------<<<<Authentication>>>>---------------------------------

@@ -18,7 +18,11 @@ class shopController extends Controller
         $data = ['LoggedInfo' => shop::where('id', '=', session('LoggedShop'))->first()];
         return view('shop.home', $data);
     }
-    //
+    function profile()
+    {
+        $data = ['LoggedInfo' =>  shop::where('id', '=', session('LoggedShop'))->first()];
+        return view('shop.profile', $data);
+    }
     function searchForm(Request $request)
     {
         return view('shop.searchForm');

@@ -30,21 +30,10 @@ class customerController extends Controller
 
         return view('customer.home', $data);
     }
-    function dateSchedule()
+    function profile()
     {
-        return now()->toArray();
-        // todo
-        $orders = order::where("renting", 0)->get();
-        foreach ($orders as $order) {
-            $datetime1 = new DateTime($order['created_at']);
-            $datetime2 = new \DateTime('NOW');
-
-            $interval = $datetime1->diff($datetime2);
-            $days = $interval->format('%a'); //now do whatever you like with $days
-            if ($days >= 1) {
-                order::where("id", $order['id'])->delete();
-            }
-        }
+        $data = ['LoggedInfo' => customer::where('id', '=', session('LoggedCustomer'))->first()];
+        return view('customer.profile', $data);
     }
     function myOrder()
     {
