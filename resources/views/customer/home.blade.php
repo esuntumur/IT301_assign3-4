@@ -31,8 +31,11 @@
     </div>
     <h1 class="text-white pt-3">Trailer</h1>
     <hr>
-    <iframe class="embed-responsive-item mx-auto " width="853" height="505" src="{{$weekContent['trailerLink']}}"
-        allowfullscreen style="text-align: center; left: 500px; width:100%;"></iframe>
+    <div class="embed-responsive embed-responsive-16by9 ">
+        <iframe class="embed-responsive-item w-75" style="margin: 0 auto; display: block;"
+            src="{{$weekContent['trailerLink']}}" allowfullscreen></iframe>
+    </div>
+    7638dbb6997e1a1eac659e877659de9
     @endif
     @if (isset($monthContent))
     <br>
@@ -66,7 +69,7 @@
     <hr>
     <div class="embed-responsive embed-responsive-16by9">
 
-        <iframe class="embed-responsive-item" src="{{$weekContent['trailerLink']}}" allowfullscreen></iframe>
+        <iframe rame class="embed-responsive-item" src="{{$weekContent['trailerLink']}}" allowfullscreen></iframe>
     </div>
     @endif
 </div>
