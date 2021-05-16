@@ -1,3 +1,4 @@
+{{-- * B180910069 Амарбат--}}
 @extends('layout.master')
 @section('header')
 <link rel="stylesheet" href="{{ URL::asset('css/login/login.css') }}" />
@@ -12,20 +13,20 @@
                     {{csrf_field()}}
                     <h1>Login</h1>
                     @if (Session::get('fail'))
-                        <div class="alert alert-danger">
+                    <div class="alert alert-danger">
                         {{Session::get('fail')}}
                     </div>
                     @endif
-                    
+
                     <p class="text-muted"> Please enter your email and password!</p>
                     <input type="text" name="email" placeholder="Email" value="{{old('email')}}">
                     <span class="text-danger">@error('email')
                         {{$message}}
-                    @enderror</span>
-                    <input type="password" name="password" placeholder="Password" >
-                     <span class="text-danger">@error('password')
+                        @enderror</span>
+                    <input type="password" name="password" placeholder="Password">
+                    <span class="text-danger">@error('password')
                         {{$message}}
-                    @enderror</span>
+                        @enderror</span>
                     <a class="forgot text-muted d-block small" href="{{ route('auth.register') }}">Sign up</a>
                     <label class="text-white" for="loginType">Нэвтрэх хэлбэр:</label>
                     <div class="container col-md-5">

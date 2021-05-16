@@ -1,5 +1,6 @@
 <?php
-
+// * B170910031 Есөнтөмөр
+// * B180910069 Амарбат
 use App\Http\Controllers\adminController;
 use App\Http\Controllers\customerController;
 use Illuminate\Support\Facades\Route;
@@ -7,7 +8,6 @@ use App\Http\Controllers\MainController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\shopController;
 
-//  sda
 Route::post('auth/save', [MainController::class, 'save'])->name('auth.save');
 Route::post('/auth/check', [MainController::class, 'check'])->name('auth.check');
 Route::get('/auth/logout', [MainController::class, 'logOut'])->name('auth.logout');
@@ -35,7 +35,6 @@ Route::group(['middleware' => ['AuthCheck']], function () {
     Route::post('/shop/recievecontent', [shopController::class, 'doRecieveContent'])->name('shop.recieveContent');
     Route::get('/shop/myorder', [shopController::class, 'myOrder'])->name('shop.myOrder');
     Route::get('/shop/myorder/{orderId}', [shopController::class, 'extendOrder'])->name('shop.extendOrder');
-    // todo) => send email
     Route::get('/shop/email',  'App\Http\Controllers\EmailController@create');
     Route::post('/shop/email', 'App\Http\Controllers\EmailController@sendEmail')->name('shop/email');
 
@@ -52,13 +51,11 @@ Route::group(['middleware' => ['AuthCheck']], function () {
     Route::get('/customer/myorder/{orderId}', [customerController::class, 'extendRequest']);
 
     // * -----------------------------------<<<<Admin>>>>------------------------------------
-    Route::get('/admin/home', [adminController::class, 'adminHome'])->name('admin.home');
     Route::get('/admin/profile', [adminController::class, 'profile'])->name(
         'admin.profile'
     );
     Route::get('/admin/shops', [adminController::class, 'shopAccounts'])->name('admin.shops');
     Route::get('/admin/customers', [adminController::class, 'customerAccounts'])->name('admin.customers');
-    // todo Delete
     Route::get('/admin/shops/{id}', [adminController::class, 'deleteShop'])->name('admin.deleteShop');
     Route::get('/admin/customers/{id}', [adminController::class, 'deleteCustomer'])->name('admin.deleteCustomer');
 

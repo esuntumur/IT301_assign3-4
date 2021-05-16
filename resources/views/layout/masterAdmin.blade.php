@@ -1,3 +1,4 @@
+{{-- * B170910031 Есөнтөмөр --}}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -27,7 +28,8 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="{{route('admin.shops')}}">Shop accounts<span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="{{route('admin.shops')}}">Shop accounts<span
+                            class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{route('admin.customers')}}">Customer accounts</a>
@@ -35,7 +37,8 @@
             </ul>
             <ul class="navbar-nav">
                 <li class="nav-item float-right">
-                    <a class="nav-link" href="{{route('admin.profile')}}">Profile: {{Session()->get('LoggedAdminName')}}    |</a>
+                    <a class="nav-link" href="{{route('admin.profile')}}">Profile:
+                        {{Session()->get('LoggedAdminName')}}    |</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{route('auth.logout')}}">Гарах</a>

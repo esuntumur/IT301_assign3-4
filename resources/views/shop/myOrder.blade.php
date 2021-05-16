@@ -1,3 +1,4 @@
+{{-- * B170910031 Есөнтөмөр --}}
 @extends('layout.masterShop')
 @section('content')
 <h1 class="text-white">Хүсэлтүүд</h1>

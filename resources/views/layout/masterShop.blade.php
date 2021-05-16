@@ -1,3 +1,4 @@
+{{-- * B170910031 Есөнтөмөр --}}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -45,7 +46,8 @@
             </ul>
             <ul class="navbar-nav">
                 <li class="nav-item float-right">
-                    <a class="nav-link" href="{{route('shop.profile')}}">Profile: {{Session()->get('LoggedShopName')}}    |</a>
+                    <a class="nav-link" href="{{route('shop.profile')}}">Profile:
+                        {{Session()->get('LoggedShopName')}}    |</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{route('auth.logout')}}">Гарах</a>
