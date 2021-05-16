@@ -1,7 +1,8 @@
 @extends('layout.masterAdmin')
 @section('content')
-    <h1>Үйлчлүүлэгчдийн бүртгэл</h1>
-    <table class="table table-striped table-dark">
+<br>
+<h1>Үйлчлүүлэгчдийн бүртгэл</h1><br>
+<table class="table table-striped table-dark">
     <thead>
         <tr>
             <th scope="col">Үйлчлүүлэгчийн дугаар</th>
@@ -20,8 +21,9 @@
             <th>{{$customers[$i]['address']}}</th>
             <th>{{$customers[$i]['email']}}</th>
             <th>{{$customers[$i]['phone']}}</th>
+            <th scope="col"><a href="{{route('admin.customers')}}">Устгах</a></th>
             </tr>
             @endfor
-        </tbody>
+            </tbody>
 </table>
 @endsection

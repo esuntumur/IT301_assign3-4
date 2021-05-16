@@ -58,6 +58,10 @@ Route::group(['middleware' => ['AuthCheck']], function () {
     );
     Route::get('/admin/shops', [adminController::class, 'shopAccounts'])->name('admin.shops');
     Route::get('/admin/customers', [adminController::class, 'customerAccounts'])->name('admin.customers');
+    // todo Delete
+    Route::get('/admin/shops/{id}', [adminController::class, 'deleteShop'])->name('admin.deleteShop');
+    Route::get('/admin/customers/{id}', [adminController::class, 'deleteCustomer'])->name('admin.deleteCustomer');
+
     // * -------------------------------<<<<Authentication>>>>---------------------------------
     Route::get('/auth/login', [MainController::class, 'login'])->name('auth.login');
     Route::get('/auth/register', [MainController::class, 'register'])->name('auth.register');

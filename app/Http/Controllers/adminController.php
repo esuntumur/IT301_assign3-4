@@ -4,16 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Models\admin;
 use App\Models\customer;
+use App\Models\order;
 use App\Models\shop;
+use App\Models\storage;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class adminController extends Controller
 {
-    function adminHome()
-    {
-        $data = ['LoggedInfo' => admin::where('id', '=', session('LoggedAdmin'))->first()];
-        return view('admin.home', $data);
-    }
     function profile()
     {
         $data = ['LoggedInfo' => admin::where('id', '=', session('LoggedAdmin'))->first()];
@@ -28,5 +26,32 @@ class adminController extends Controller
     {
         $customers = customer::get();
         return view('admin.customers', compact('customers'));
+    }
+    function deleteShop($id)
+    {
+        DB::beginTransaction();
+        try {
+            storage::where('shopId', $id)->delete();
+            order::where('shopId', $id)->delete();
+            shop::where('id', $id)->delete();
+            DB::commit();
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return redirect()->back()->withSuccess("Алдаа гарлаа." . $th);
+        }
+        return redirect()->back()->withSuccess("Амжилттай устгалаа.");
+    }
+    function deleteCustomer($id)
+    {
+        DB::beginTransaction();
+        try {
+            order::where('customerId', $id)->delete();
+            customer::where('customerId', $id)->delete();
+            DB::commit();
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return redirect()->back()->withSuccess("Алдаа гарлаа." . $th);
+        }
+        return redirect()->back()->withSuccess("Амжилттай устгалаа.");
     }
 }

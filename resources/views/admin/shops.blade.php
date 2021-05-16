@@ -1,7 +1,8 @@
 @extends('layout.masterAdmin')
 @section('content')
-    <h1>Дэлгүүрүүдийн бүртгэл</h1>
-    <table class="table table-striped table-dark">
+<br>
+<h1>Дэлгүүрүүдийн бүртгэл</h1><br>
+<table class="table table-striped table-dark">
     <thead>
         <tr>
             <th scope="col">Дэлгүүрийн дугаар</th>
@@ -16,8 +17,9 @@
             <th>{{$shops[$i]['address']}}</th>
             <th>{{$shops[$i]['email']}}</th>
             <th>{{$shops[$i]['phone']}}</th>
+            <th scope="col"><a href="shops/{{$shops[$i]['id']}}">Устгах</a></th>
             </tr>
             @endfor
-        </tbody>
+            </tbody>
 </table>
 @endsection

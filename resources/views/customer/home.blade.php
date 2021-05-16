@@ -31,10 +31,8 @@
     </div>
     <h1 class="text-white pt-3">Trailer</h1>
     <hr>
-    <div class="embed-responsive embed-responsive-16by9">
-
-        <iframe class="embed-responsive-item" src="{{$weekContent['trailerLink']}}" allowfullscreen></iframe>
-    </div>
+    <iframe class="embed-responsive-item mx-auto " width="853" height="505" src="{{$weekContent['trailerLink']}}"
+        allowfullscreen style="text-align: center; left: 500px; width:100%;"></iframe>
     @endif
     @if (isset($monthContent))
     <br>
