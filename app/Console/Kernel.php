@@ -1,5 +1,5 @@
 <?php
-
+// * B170910031 Есөнтөмөр
 namespace App\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
@@ -27,9 +27,6 @@ class Kernel extends ConsoleKernel
     {
         $schedule->command('minute:delete')->everyMinute();
         $schedule->command('mailSchedule')->everyMinute();
-        $schedule->call(function () {
-            return view('layout.master');
-        })->everyMinute();
     }
 
     /**

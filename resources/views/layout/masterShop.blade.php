@@ -1,5 +1,7 @@
+{{-- * B170910031 Есөнтөмөр --}}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -22,12 +24,6 @@
 
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="{{route('shop.dashboard')}}">Dashboard</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
@@ -43,11 +39,25 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{route('shop.recieveContent')}}">Контентыг авах</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{route('shop.myOrder')}}">Захиалга харах</a>
+                </li>
+
+            </ul>
+            <ul class="navbar-nav">
+                <li class="nav-item float-right">
+                    <a class="nav-link" href="{{route('shop.profile')}}">Profile:
+                        {{Session()->get('LoggedShopName')}}    |</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{route('auth.logout')}}">Гарах</a>
+                </li>
             </ul>
         </div>
     </nav>
-    <div class="container">
+    <div class="container  text-white">
         @yield('content')
     </div>
 </body>
+
 </html>

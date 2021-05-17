@@ -1,11 +1,13 @@
 <?php
-
+// * B170910031 Есөнтөмөр
+// * B180910069 Амарбат
+use App\Http\Controllers\adminController;
 use App\Http\Controllers\customerController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\shopController;
-//  sda
+
 Route::post('auth/save', [MainController::class, 'save'])->name('auth.save');
 Route::post('/auth/check', [MainController::class, 'check'])->name('auth.check');
 Route::get('/auth/logout', [MainController::class, 'logOut'])->name('auth.logout');
@@ -14,8 +16,12 @@ Route::group(['middleware' => ['AuthCheck']], function () {
     Route::get('/', function () {
         return view('auth.login');
     });
-    // * --------<<<<Shop>>>>---------
-    Route::get('/shop/dashboard', [shopController::class, 'dashboardShop'])->name('shop.dashboard');
+
+    // * -----------------------------------<<<<Shop>>>>------------------------------------
+    Route::get('/shop/home', [shopController::class, 'shopHome'])->name('shop.home');
+    Route::get('/shop/profile', [shopController::class, 'profile'])->name(
+        'shop.profile'
+    );
     Route::get('/shop/storeContent', [shopController::class, 'searchForm'])->name('shop.storeContent');
     Route::get('/shop/storeContent/{id}', [shopController::class, 'storeContent']);
     Route::post('/shop/storeContent/{id}', [shopController::class, 'doStoreContent']);
@@ -27,19 +33,33 @@ Route::group(['middleware' => ['AuthCheck']], function () {
     Route::post('/shop/givecontent', [shopController::class, 'doGiveContent'])->name('shop.giveContent');
     Route::get('/shop/recievecontent', [shopController::class, 'recieveContent'])->name('shop.recieveContent');
     Route::post('/shop/recievecontent', [shopController::class, 'doRecieveContent'])->name('shop.recieveContent');
-    // todo) => send email
+    Route::get('/shop/myorder', [shopController::class, 'myOrder'])->name('shop.myOrder');
+    Route::get('/shop/myorder/{orderId}', [shopController::class, 'extendOrder'])->name('shop.extendOrder');
     Route::get('/shop/email',  'App\Http\Controllers\EmailController@create');
     Route::post('/shop/email', 'App\Http\Controllers\EmailController@sendEmail')->name('shop/email');
-    // * --------<<<<Customer>>>>---------
-    Route::get('/customer/dashboard', [customerController::class, 'dashboardCustomer'])->name('customer.dashboard');
+
+    // * -----------------------------------<<<<Customer>>>>------------------------------------
+    Route::get('/customer/home', [customerController::class, 'customerHome'])->name('customer.home');
+    Route::get('/customer/profile', [customerController::class, 'profile'])->name(
+        'customer.profile'
+    );
     Route::get('/customer/myorder', [customerController::class, 'myOrder'])->name('customer.myOrder');
-    Route::get('/customer/home', [customerController::class, 'dashboardHome'])->name('customer.home');
     Route::get('/customer/search', [customerController::class, 'searchContent'])->name('content.search');
     Route::get('/customer/content/{id}', [customerController::class, 'getContent']);
     Route::get('/customer/content/{id}/orderContent', [customerController::class, 'orderContent']);
     Route::post('/customer/content/{id}/orderContent', [OrderController::class, 'store'])->name('customer.store');
-    // * --------<<<<Authentication>>>>---------
+    Route::get('/customer/myorder/{orderId}', [customerController::class, 'extendRequest']);
+
+    // * -----------------------------------<<<<Admin>>>>------------------------------------
+    Route::get('/admin/profile', [adminController::class, 'profile'])->name(
+        'admin.profile'
+    );
+    Route::get('/admin/shops', [adminController::class, 'shopAccounts'])->name('admin.shops');
+    Route::get('/admin/customers', [adminController::class, 'customerAccounts'])->name('admin.customers');
+    Route::get('/admin/shops/{id}', [adminController::class, 'deleteShop'])->name('admin.deleteShop');
+    Route::get('/admin/customers/{id}', [adminController::class, 'deleteCustomer'])->name('admin.deleteCustomer');
+
+    // * -------------------------------<<<<Authentication>>>>---------------------------------
     Route::get('/auth/login', [MainController::class, 'login'])->name('auth.login');
     Route::get('/auth/register', [MainController::class, 'register'])->name('auth.register');
-    Route::get('/admin/dashboard', [MainController::class, 'dashboardAdmin']);
 });

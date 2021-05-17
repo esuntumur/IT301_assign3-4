@@ -1,5 +1,6 @@
 <?php
 
+// * B180910069 Амарбат
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -80,6 +81,7 @@ class MainController extends Controller
             }
         }
     }
+
     function check(Request $request)
     {
         // return $request->input();
@@ -97,7 +99,7 @@ class MainController extends Controller
                 if (Hash::check($request->password, $customerInfo->password)) {
                     $request->session()->put('LoggedCustomer', $customerInfo->id);
                     $request->session()->put('LoggedCustomerName', $customerInfo->name);
-                    return redirect('customer/dashboard');
+                    return redirect('customer/home');
                 } else {
                     return back()->with('fail', 'Таны нууц үг буруу байна.');
                 }
@@ -109,7 +111,8 @@ class MainController extends Controller
             } else {
                 if (Hash::check($request->password, $shopInfo->password)) {
                     $request->session()->put('LoggedShop', $shopInfo->id);
-                    return redirect('shop/dashboard');
+                    $request->session()->put('LoggedShopName', $shopInfo->name);
+                    return redirect('shop/myStorage');
                 } else {
                     return back()->with('fail', 'Таны нууц үг буруу байна.');
                 }
@@ -121,17 +124,13 @@ class MainController extends Controller
             } else {
                 if ($request->password == $adminInfo->password) {
                     $request->session()->put('LoggedAdmin', $adminInfo->id);
-                    return redirect('admin/dashboard');
+                    $request->session()->put('LoggedAdminName', $adminInfo->name);
+                    return redirect('admin/profile');
                 } else {
                     return back()->with('fail', 'Таны нууц үг буруу байна.');
                 }
             }
         }
-    }
-    function dashboardAdmin()
-    {
-        $data = ['LoggedInfo' => admin::where('id', '=', session('LoggedAdmin'))->first()];
-        return view('admin.dashboard', $data);
     }
 
     function logOut()

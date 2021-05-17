@@ -1,4 +1,5 @@
 <?php
+// * B170910031 Есөнтөмөр
 
 namespace App\Http\Controllers;
 
@@ -8,17 +9,21 @@ use App\Models\shop;
 use App\Models\content;
 use App\Models\order;
 use App\Models\storage;
-use Carbon\Carbon;
+use DateInterval;
 use DateTime;
 
 class shopController extends Controller
 {
-    function dashboardShop()
+    function shopHome()
     {
         $data = ['LoggedInfo' => shop::where('id', '=', session('LoggedShop'))->first()];
-        return view('shop.dashboard', $data);
+        return view('shop.home', $data);
     }
-    //
+    function profile()
+    {
+        $data = ['LoggedInfo' =>  shop::where('id', '=', session('LoggedShop'))->first()];
+        return view('shop.profile', $data);
+    }
     function searchForm(Request $request)
     {
         return view('shop.searchForm');
@@ -44,7 +49,7 @@ class shopController extends Controller
     function myStorage()
     {
         $myStorage = storage::join('contents', 'contents.id', '=', 'storages.contentId')
-            ->select('contents.name', 'contents.author', 'storages.contentId', 'storages.quantity', 'storages.price', 'storages.rentQuantity', 'storages.type')
+            ->select('contents.name', 'contents.author', 'storages.contentId', 'storages.quantity', 'storages.price', 'storages.rentQuantity', 'storages.type', 'contents.trailerLink', 'contents.contentBanner')
             ->where('shopId', Session()->get('LoggedShop'))
             ->get();
         return view('shop.myStorage', compact('myStorage'));
@@ -82,6 +87,8 @@ class shopController extends Controller
         $content->producer = $request->producer;
         $content->type = $request->type;
         $content->duration = $request->duration;
+        $content->trailerLink = $request->trailerLink;
+        $content->contentBanner = $request->contentBanner;
         $content->save();
         return redirect()->back()->withSuccess('Таны оруулсан контент амжилттай нэмэгдлээ');
     }
@@ -96,7 +103,7 @@ class shopController extends Controller
         if ($order)
             if ($order['renting'] == 1)
                 return redirect()->back()->withSuccess("Захиалгын контент аль хэдийн хэрэглэгчид өгөгдсөн байна.");
-        $update = order::where("id", $request->orderId)->update(["renting" => 1]);
+        $update = order::where("id", $request->orderId)->update(["renting" => 1, "givedDate" => now()]);
         if ($update)
             return redirect()->back()->withSuccess("Захиалгын контентыг амжилттай хэрэглэгчид амжилттай өглөө.");
         else
@@ -112,10 +119,10 @@ class shopController extends Controller
         $order = order::where("id", $request->orderId)->get()->first();
         if ($order) {
             if ($order['renting'] == 1) {
-                $givedDate = new DateTime($order['updated_at']);
+                $givedDate = new DateTime($order['givedDate']);
                 $now = new \DateTime('NOW');
                 $day = $now->diff($givedDate)->format('%a');
-                if ($day < 7) {
+                if ($day < 7 || $order->extend == 1 && $day < 9) {
                     DB::beginTransaction();
                     try {
                         $storage = storage::where('shopId', $order->shopId)->where('contentId', $order->contentId)->first();
@@ -123,7 +130,7 @@ class shopController extends Controller
                         storage::where('shopId', $order->shopId)->where('contentId', $order->contentId)->update(['quantity' => $quantityDiff]);
                         order::where("id", $request->orderId)->update(["renting" => 0, "fine" => 0, 'returnedDate' => now() . ""]);
                         DB::commit();
-                        return redirect()->back()->withSuccess("Захиалгын контентыг амжилттай хүлээн авлаа." . $day);
+                        return redirect()->back()->withSuccess("Захиалгын контентыг амжилттай хүлээн авлаа." . $day . " хоног түрээсэлсэн байна.");
                     } catch (\Exception $e) {
                         DB::rollback();
                         return "Захиалгыг хүлээн авах үед алдаа гарав: " . $e;
@@ -134,12 +141,15 @@ class shopController extends Controller
                         $storage = storage::where('shopId', $order->shopId)->where('contentId', $order->contentId)->first();
                         $quantityDiff = $storage['quantity'] + $order->quantity;
                         storage::where('shopId', $order->shopId)->where('contentId', $order->contentId)->update(['quantity' => $quantityDiff]);
-                        $recievedDate = new DateTime($order['updated_at']);
-
-                        $days = $now->diff($recievedDate)->format('%a') - 7;
-                        order::where("id", $request->orderId)->update(["renting" => 0, "fine" => $days * $storage['price'], 'returnedDate' => now() . ""]);
+                        $recievedDate = new DateTime($order['givedDate']);
+                        if ($order->extend == 1) {
+                            $days = $now->diff($recievedDate)->format('%a') - 9;
+                        } else {
+                            $days = $now->diff($recievedDate)->format('%a') - 7;
+                        }
+                        order::where("id", $request->orderId)->update(["renting" => 0, "fine" => $days * $order['orderPrice'] / 10, 'returnedDate' => now() . ""]);
                         DB::commit();
-                        return redirect()->back()->withSuccess("Захиалгын контентыг амжилттай хүлээн авлаа. Захиалгын контент буцаалт $days хоногоор хоцорсон байна. Торгуул: " . ($days * $storage['price'] / 10) . "₮");
+                        return redirect()->back()->withSuccess("Захиалгын контентыг амжилттай хүлээн авлаа. Захиалгын контент буцаалт $days хоногоор хоцорсон байна. Торгуул: " . ($days * $order['orderPrice'] / 10) . "₮");
                     } catch (\Exception $e) {
                         DB::rollback();
                         return "Торгууль бодох үед алдаа гарав: " . $e;
@@ -149,5 +159,31 @@ class shopController extends Controller
                 return redirect()->back()->withSuccess("Захиалгын контентыг өмнө нь хүлээн авсан байна");
         } else
             return redirect()->back()->withSuccess("Захиалга олдсонгүй");
+    }
+    function myOrder()
+    {
+        $ContentNames = [];
+        $orders = order::where('shopId', session()->get('LoggedShop'))->get();
+
+        // return $data['orders'];
+        foreach ($orders as $order) {
+            $contentName = content::where('id', $order->contentId)->first();
+            array_push($ContentNames, $contentName);
+        }
+        $data = [
+            'orders' => $orders,
+            'content' => $ContentNames
+        ];
+        return view("shop.myOrder", $data);
+    }
+    protected $fillable = ['extend'];
+    function extendOrder($orderId)
+    {
+
+        $order = order::where('id', $orderId)->first();
+
+        $order->extend = 1;
+        $order->save();
+        return  redirect()->back()->withSuccess("Амжилттай сунгалаа");
     }
 }
