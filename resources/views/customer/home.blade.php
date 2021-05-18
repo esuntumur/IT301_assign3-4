@@ -36,7 +36,6 @@
         <iframe class="embed-responsive-item w-75" style="margin: 0 auto; display: block;"
             src="{{$weekContent['trailerLink']}}" allowfullscreen></iframe>
     </div>
-    7638dbb6997e1a1eac659e877659de9
     @endif
     @if (isset($monthContent))
     <br>

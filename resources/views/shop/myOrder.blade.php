@@ -64,7 +64,7 @@
             <th scope="col">Авсан огноо</th>
         </tr>
         @for ($i = 0; $i < count($orders); $i++) <tr>
-            @if ($orders[$i]['renting']==1 && $orders[$i]['returnedDate']==null && $orders[$i]['extend']==0)
+            @if ($orders[$i]['renting']==1 && $orders[$i]['returnedDate']==null && $orders[$i]['extend']===0)
             <th>{{$orders[$i]['id']}}</th>
             <th>{{$content[$i]['name']}}</th>
             <th>{{$orders[$i]['customerId']}}</th>

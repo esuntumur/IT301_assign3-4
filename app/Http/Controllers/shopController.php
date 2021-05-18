@@ -81,6 +81,15 @@ class shopController extends Controller
     }
     public function doCreateContent(Request $request)
     {
+        $request->validate([
+            'name' => 'required',
+            'author' => 'required',
+            'producer' => 'required',
+            'type' => 'required',
+            'duration' => 'required',
+            'trailerLink' => 'required',
+            'contentBanner' => 'required',
+        ]);
         $content = new content;
         $content->name = $request->name;
         $content->author = $request->author;
